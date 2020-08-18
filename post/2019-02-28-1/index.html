@@ -1,0 +1,658 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>learning-go-from-zero-to-hero-part2 - LvLv's Blog.</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="🐒"><meta name=description content="作者：Milap Neupane 链接：https://medium.freecodecamp.org/learning-go-from-zero-to-h"><meta name=keywords content="NERVEbing,lvlv,ChaoLyu"><meta name=generator content="Hugo 0.74.3 with theme even"><link rel=canonical href=https://lvlv.tech/post/2019-02-28-1/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><link href=/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:title" content="learning-go-from-zero-to-hero-part2"><meta property="og:description" content="作者：Milap Neupane 链接：https://medium.freecodecamp.org/learning-go-from-zero-to-h"><meta property="og:type" content="article"><meta property="og:url" content="https://lvlv.tech/post/2019-02-28-1/"><meta property="article:published_time" content="2019-02-28T13:34:06+08:00"><meta property="article:modified_time" content="2019-02-28T13:34:06+08:00"><meta itemprop=name content="learning-go-from-zero-to-hero-part2"><meta itemprop=description content="作者：Milap Neupane 链接：https://medium.freecodecamp.org/learning-go-from-zero-to-h"><meta itemprop=datePublished content="2019-02-28T13:34:06+08:00"><meta itemprop=dateModified content="2019-02-28T13:34:06+08:00"><meta itemprop=wordCount content="4345"><meta itemprop=keywords content="Go,"><meta name=twitter:card content="summary"><meta name=twitter:title content="learning-go-from-zero-to-hero-part2"><meta name=twitter:description content="作者：Milap Neupane 链接：https://medium.freecodecamp.org/learning-go-from-zero-to-h"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>🐒</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>主页</li></a><a href=/post/><li class=mobile-menu-item>归档</li></a><a href=/tags/><li class=mobile-menu-item>标签</li></a><a href=/about/><li class=mobile-menu-item>关于</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>🐒</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>主页</a></li><li class=menu-item><a class=menu-item-link href=/post/>归档</a></li><li class=menu-item><a class=menu-item-link href=/tags/>标签</a></li><li class=menu-item><a class=menu-item-link href=/about/>关于</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>learning-go-from-zero-to-hero-part2</h1><div class=post-meta><span class=post-time>2019-02-28</span>
+<span class=more-meta>约 4345 字</span>
+<span class=more-meta>预计阅读 9 分钟</span>
+<span id=busuanzi_container_page_pv class=more-meta><span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次阅读</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><ul><li><a href=#函数>函数</a></li><li><a href=#结构方法和接口>结构、方法和接口</a></li><li><a href=#包>包</a></li><li><a href=#错误处理>错误处理</a></li><li><a href=#并发>并发</a></li><li><a href=#结尾>结尾</a></li></ul></li></ul></li></ul></nav></div></div><div class=post-content><hr><p>作者：<a href=https://medium.freecodecamp.org/@milapneupane>Milap Neupane</a></p><p>链接：<a href=https://medium.freecodecamp.org/learning-go-from-zero-to-hero-d2a3223b3d86>https://medium.freecodecamp.org/learning-go-from-zero-to-hero-d2a3223b3d86</a></p><hr><h3 id=函数>函数</h3><p>  <code>main.go</code>包中定义的<code>func main()</code>是执行程序的入口。可以定义和使用更多函数。让我们看一个简单的例子：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>add</span><span class=p>(</span><span class=nx>a</span> <span class=kt>int</span><span class=p>,</span> <span class=nx>b</span> <span class=kt>int</span><span class=p>)</span> <span class=kt>int</span> <span class=p>{</span>
+  <span class=nx>c</span> <span class=o>:=</span> <span class=nx>a</span> <span class=o>+</span> <span class=nx>b</span>
+  <span class=k>return</span> <span class=nx>c</span>
+<span class=p>}</span>
+<span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+  <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nf>add</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>1</span><span class=p>))</span>
+<span class=p>}</span>
+<span class=c1>// 3
+</span></code></pre></td></tr></table></div></div><p>  正如我们在上面的例子中所看到的，使用<strong><code>func</code></strong>关键字后跟函数名来定义Go函数。函数所需的<strong>参数</strong>需要根据其数据类型定义，最后是返回的数据类型。</p><p>  函数的返回也可以在函数中预定义：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>add</span><span class=p>(</span><span class=nx>a</span> <span class=kt>int</span><span class=p>,</span> <span class=nx>b</span> <span class=kt>int</span><span class=p>)</span> <span class=p>(</span><span class=nx>c</span> <span class=kt>int</span><span class=p>)</span> <span class=p>{</span>
+  <span class=nx>c</span> <span class=p>=</span> <span class=nx>a</span> <span class=o>+</span> <span class=nx>b</span>
+  <span class=k>return</span>
+<span class=p>}</span>
+<span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+  <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nf>add</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>1</span><span class=p>))</span>
+<span class=p>}</span>
+<span class=c1>// 3
+</span></code></pre></td></tr></table></div></div><p>  这里c被定义为返回变量。因此，定义的变量c将自动返回，而无需在结尾的return语句中定义。</p><p>  还可以从单个函数返回多个返回值，将返回值与逗号分隔开。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>add</span><span class=p>(</span><span class=nx>a</span> <span class=kt>int</span><span class=p>,</span> <span class=nx>b</span> <span class=kt>int</span><span class=p>)</span> <span class=p>(</span><span class=kt>int</span><span class=p>,</span> <span class=kt>string</span><span class=p>)</span> <span class=p>{</span>
+  <span class=nx>c</span> <span class=o>:=</span> <span class=nx>a</span> <span class=o>+</span> <span class=nx>b</span>
+  <span class=k>return</span> <span class=nx>c</span><span class=p>,</span> <span class=s>&#34;successfully added&#34;</span>
+<span class=p>}</span>
+<span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+  <span class=nx>sum</span><span class=p>,</span> <span class=nx>message</span> <span class=o>:=</span> <span class=nf>add</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+  <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>message</span><span class=p>)</span>
+  <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>sum</span><span class=p>)</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><h3 id=结构方法和接口>结构、方法和接口</h3><p>  Go不是一个完全面向对象的语言，但是它的结构，接口和方法，和面向对象有异曲同工之妙。</p><h4 id=结构>结构</h4><p>  结构<code>struct</code>是不同类型字段的集合。结构用于将数据分组在一起。例如，如果我们想要对<code>Person</code>类型的数据进行分组，我们会定义一个人的属性，其中可能包括姓名，年龄，性别。可以使用以下语法定义结构：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kd>type</span> <span class=nx>person</span> <span class=kd>struct</span> <span class=p>{</span>
+  <span class=nx>name</span> <span class=kt>string</span>
+  <span class=nx>age</span> <span class=kt>int</span>
+  <span class=nx>gender</span> <span class=kt>string</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>  在定义了人类型结构的情况下，现在让我们创建一个<code>person</code>：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=c1>//方式1：指定属性和值
+</span><span class=c1></span><span class=nx>p</span> <span class=p>=</span> <span class=nx>person</span><span class=p>{</span><span class=nx>name</span><span class=p>:</span> <span class=s>&#34;Bob&#34;</span><span class=p>,</span> <span class=nx>age</span><span class=p>:</span> <span class=mi>42</span><span class=p>,</span> <span class=nx>gender</span><span class=p>:</span> <span class=s>&#34;Male&#34;</span><span class=p>}</span>
+<span class=c1>//方式2：仅指定值
+</span><span class=c1></span><span class=nx>person</span><span class=p>{</span><span class=s>&#34;Bob&#34;</span><span class=p>,</span> <span class=mi>42</span><span class=p>,</span> <span class=s>&#34;Male&#34;</span><span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>  我们可以用点<code>.</code>轻松访问这些数据</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=nx>p</span><span class=p>.</span><span class=nx>name</span>
+<span class=c1>// Bob
+</span><span class=c1></span><span class=nx>p</span><span class=p>.</span><span class=nx>age</span>
+<span class=c1>// 42
+</span><span class=c1></span><span class=nx>p</span><span class=p>.</span><span class=nx>gender</span>
+<span class=c1>// Male
+</span></code></pre></td></tr></table></div></div><p>  还可以使用其指针直接访问结构的属性：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=nx>pp</span> <span class=p>=</span> <span class=o>&amp;</span><span class=nx>person</span><span class=p>{</span><span class=nx>name</span><span class=p>:</span> <span class=s>&#34;Bob&#34;</span><span class=p>,</span> <span class=nx>age</span><span class=p>:</span> <span class=mi>42</span><span class=p>,</span> <span class=nx>gender</span><span class=p>:</span> <span class=s>&#34;Male&#34;</span><span class=p>}</span>
+<span class=nx>pp</span><span class=p>.</span><span class=nx>name</span>
+<span class=c1>// Bob
+</span></code></pre></td></tr></table></div></div><h4 id=方法><strong>方法</strong></h4><p>  方法<code>Method</code>是具有<em>接收器</em>的特殊类型的功能*。*接收器既可以是值，也可以是指针。让我们创建一个名为describe的方法，它具有我们在上面的例子中创建的接收器类型：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
+<span class=kn>import</span> <span class=s>&#34;fmt&#34;</span>
+
+<span class=c1>// struct defination
+</span><span class=c1></span><span class=kd>type</span> <span class=nx>person</span> <span class=kd>struct</span> <span class=p>{</span>
+  <span class=nx>name</span>   <span class=kt>string</span>
+  <span class=nx>age</span>    <span class=kt>int</span>
+  <span class=nx>gender</span> <span class=kt>string</span>
+<span class=p>}</span>
+
+<span class=c1>// method 定义
+</span><span class=c1></span><span class=kd>func</span> <span class=p>(</span><span class=nx>p</span> <span class=o>*</span><span class=nx>person</span><span class=p>)</span> <span class=nf>describe</span><span class=p>()</span> <span class=p>{</span>
+  <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;%v is %v years old.&#34;</span><span class=p>,</span> <span class=nx>p</span><span class=p>.</span><span class=nx>name</span><span class=p>,</span> <span class=nx>p</span><span class=p>.</span><span class=nx>age</span><span class=p>)</span>
+<span class=p>}</span>
+<span class=kd>func</span> <span class=p>(</span><span class=nx>p</span> <span class=o>*</span><span class=nx>person</span><span class=p>)</span> <span class=nf>setAge</span><span class=p>(</span><span class=nx>age</span> <span class=kt>int</span><span class=p>)</span> <span class=p>{</span>
+  <span class=nx>p</span><span class=p>.</span><span class=nx>age</span> <span class=p>=</span> <span class=nx>age</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=p>(</span><span class=nx>p</span> <span class=nx>person</span><span class=p>)</span> <span class=nf>setName</span><span class=p>(</span><span class=nx>name</span> <span class=kt>string</span><span class=p>)</span> <span class=p>{</span>
+  <span class=nx>p</span><span class=p>.</span><span class=nx>name</span> <span class=p>=</span> <span class=nx>name</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+  <span class=nx>pp</span> <span class=o>:=</span> <span class=o>&amp;</span><span class=nx>person</span><span class=p>{</span><span class=nx>name</span><span class=p>:</span> <span class=s>&#34;Bob&#34;</span><span class=p>,</span> <span class=nx>age</span><span class=p>:</span> <span class=mi>42</span><span class=p>,</span> <span class=nx>gender</span><span class=p>:</span> <span class=s>&#34;Male&#34;</span><span class=p>}</span>
+  <span class=nx>pp</span><span class=p>.</span><span class=nf>describe</span><span class=p>()</span>
+  <span class=c1>// =&gt; Bob is 42 years old
+</span><span class=c1></span>  <span class=nx>pp</span><span class=p>.</span><span class=nf>setAge</span><span class=p>(</span><span class=mi>45</span><span class=p>)</span>
+  <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>pp</span><span class=p>.</span><span class=nx>age</span><span class=p>)</span>
+  <span class=c1>// 45
+</span><span class=c1></span>  <span class=nx>pp</span><span class=p>.</span><span class=nf>setName</span><span class=p>(</span><span class=s>&#34;Hari&#34;</span><span class=p>)</span>
+  <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>pp</span><span class=p>.</span><span class=nx>name</span><span class=p>)</span>
+  <span class=c1>// Bob
+</span><span class=c1></span><span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>  正如我们在上面的例子中所看到的，现在可以使用点运算符调用该方法<code>pp.describe</code>。请注意，接收器是指针。使用指针，我们传递对值的引用，因此如果我们在方法中进行任何更改，它将反映在接收器<code>pp</code>中。它也不会创建对象的新副本，这样可以节省内存开销。</p><p>  请注意，在上面的示例中，age的值已更改，而name的值未更改，因为方法setName属于接收器类型，而setAge属于指针类型。</p><h4 id=接口>接口</h4><p>  Go接口<code>interface</code>是方法的集合。接口有助于将类型的属性组合在一起。我们以接口<code>animal</code>为例：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kd>type</span> <span class=nx>animal</span> <span class=kd>interface</span> <span class=p>{</span>
+  <span class=nf>description</span><span class=p>()</span> <span class=kt>string</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>  这里的<code>animal</code>是一种接口<code>interface</code>类型。现在我们创建两种不同类型的动物来实现<code>animal</code>接口类型：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
+
+<span class=kn>import</span> <span class=p>(</span>
+  <span class=s>&#34;fmt&#34;</span>
+<span class=p>)</span>
+
+<span class=kd>type</span> <span class=nx>animal</span> <span class=kd>interface</span> <span class=p>{</span>
+  <span class=nf>description</span><span class=p>()</span> <span class=kt>string</span>
+<span class=p>}</span>
+
+<span class=kd>type</span> <span class=nx>cat</span> <span class=kd>struct</span> <span class=p>{</span>
+  <span class=nx>Type</span>  <span class=kt>string</span>
+  <span class=nx>Sound</span> <span class=kt>string</span>
+<span class=p>}</span>
+
+<span class=kd>type</span> <span class=nx>snake</span> <span class=kd>struct</span> <span class=p>{</span>
+  <span class=nx>Type</span>      <span class=kt>string</span>
+  <span class=nx>Poisonous</span> <span class=kt>bool</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=p>(</span><span class=nx>s</span> <span class=nx>snake</span><span class=p>)</span> <span class=nf>description</span><span class=p>()</span> <span class=kt>string</span> <span class=p>{</span>
+  <span class=k>return</span> <span class=nx>fmt</span><span class=p>.</span><span class=nf>Sprintf</span><span class=p>(</span><span class=s>&#34;Poisonous: %v&#34;</span><span class=p>,</span> <span class=nx>s</span><span class=p>.</span><span class=nx>Poisonous</span><span class=p>)</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=p>(</span><span class=nx>c</span> <span class=nx>cat</span><span class=p>)</span> <span class=nf>description</span><span class=p>()</span> <span class=kt>string</span> <span class=p>{</span>
+  <span class=k>return</span> <span class=nx>fmt</span><span class=p>.</span><span class=nf>Sprintf</span><span class=p>(</span><span class=s>&#34;Sound: %v&#34;</span><span class=p>,</span> <span class=nx>c</span><span class=p>.</span><span class=nx>Sound</span><span class=p>)</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+  <span class=kd>var</span> <span class=nx>a</span> <span class=nx>animal</span>
+  <span class=nx>a</span> <span class=p>=</span> <span class=nx>snake</span><span class=p>{</span><span class=nx>Poisonous</span><span class=p>:</span> <span class=kc>true</span><span class=p>}</span>
+  <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>a</span><span class=p>.</span><span class=nf>description</span><span class=p>())</span>
+  <span class=nx>a</span> <span class=p>=</span> <span class=nx>cat</span><span class=p>{</span><span class=nx>Sound</span><span class=p>:</span> <span class=s>&#34;Meow!!!&#34;</span><span class=p>}</span>
+  <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>a</span><span class=p>.</span><span class=nf>description</span><span class=p>())</span>
+<span class=p>}</span>
+
+<span class=c1>// Poisonous: true
+</span><span class=c1>// Sound: Meow!!!
+</span></code></pre></td></tr></table></div></div><p>  在<code>main</code>函数中，我们创建了一个<code>a</code>类型为<code>animal</code>的变量。我们为动物分配蛇和猫类型，并使用Println打印<code>a.description()</code>。由于我们以不同的方式实现了两种类型（猫和蛇）中描述的方法，我们得到了不同动物的属性。</p><h3 id=包>包</h3><p>  我们在Go中编写所有代码。<strong><code>main</code></strong>包是程序执行的入口点。Go中有很多内置包<code>Package</code>。我们一直使用的就是著名的<strong>fmt</strong>包。</p><blockquote><p>  在主要机制中使用Go的包进行大规模编程，可以将大型项目分成更小的部分。</p></blockquote><h4 id=安装包>安装包</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>go get &lt;package-url-github&gt;
+// 示例
+go get github.com/satori/go.uuid
+</code></pre></td></tr></table></div></div><p>  我们安装的软件包保存在<code>GOPATH env</code>中，这是我们的工作目录。通过我们的工作目录中的pkg文件夹进入包<code>cd $GOPATH/pkg</code>。</p><h4 id=创建自定义包>创建自定义包</h4><p>  让我们从创建一个文件夹custom_package开始：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>&gt; mkdir custom_package 
+&gt; <span class=nb>cd</span> custom_package
+</code></pre></td></tr></table></div></div><p>  要创建自定义包，我们需要先使用我们需要的包名创建一个文件夹。假设我们正在构建一个包<code>person</code>。我们在<code>custom_package</code>目录中创建一个名为<code>person</code>的目录</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>&gt; mkdir person
+&gt; <span class=nb>cd</span> person
+</code></pre></td></tr></table></div></div><p>  现在让我们在这个文件夹中创建一个文件person.go。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>person</span>
+<span class=kd>func</span> <span class=nf>Description</span><span class=p>(</span><span class=nx>name</span> <span class=kt>string</span><span class=p>)</span> <span class=kt>string</span> <span class=p>{</span>
+  <span class=k>return</span> <span class=s>&#34;The person name is: &#34;</span> <span class=o>+</span> <span class=nx>name</span>
+<span class=p>}</span>
+<span class=kd>func</span> <span class=nf>secretName</span><span class=p>(</span><span class=nx>name</span> <span class=kt>string</span><span class=p>)</span> <span class=kt>string</span> <span class=p>{</span>
+  <span class=k>return</span> <span class=s>&#34;Do not share&#34;</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>  我们现在需要安装包，以便可以导入和使用它。所以让我们安装它：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>&gt; go install
+</code></pre></td></tr></table></div></div><p>  现在让我们回到custom_package文件夹并创建一个<code>main.go</code>文件</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
+<span class=kn>import</span><span class=p>(</span>
+  <span class=s>&#34;custom_package/person&#34;</span>
+  <span class=s>&#34;fmt&#34;</span>
+<span class=p>)</span>
+<span class=kd>func</span> <span class=nf>main</span><span class=p>(){</span> 
+  <span class=nx>p</span> <span class=o>:=</span> <span class=nx>person</span><span class=p>.</span><span class=nf>Description</span><span class=p>(</span><span class=s>&#34;Milap&#34;</span><span class=p>)</span>
+  <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>p</span><span class=p>)</span>
+<span class=p>}</span>
+<span class=c1>// =&gt; The person name is: Milap
+</span></code></pre></td></tr></table></div></div><p>  现在我们可以导入<code>person</code>我们创建的包并使用函数<code>Description</code>。请注意，<code>secretName</code>我们在包中创建的功能将无法访问。在Go中，以<code>大写字母</code>开头的方法名称将是私有的<code>private</code>。</p><h4 id=包文档><strong>包文档</strong></h4><p>  Go内置了对包文档的支持。运行以下命令以生成文档：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>godoc person Description
+</code></pre></td></tr></table></div></div><p>  这将为我们的包人员生成Description函数的文档。要查看文档，请使用以下命令运行Web服务器：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>godoc -http<span class=o>=</span><span class=s2>&#34;:8080&#34;</span>
+</code></pre></td></tr></table></div></div><p>  现在转到<code>http://localhost:8080/pkg</code>查看我们刚创建的包的文档。</p><h4 id=go的内置包>Go的内置包</h4><h5 id=fmt><strong>fmt</strong></h5><p>  该包实现了格式化的I/O功能，我们已经使用该包打印出stdout。</p><h5 id=json><strong>json</strong></h5><p>  Go中另一个有用的包是json包。用于编码/解码JSON。让我们举个例子来编码/解码json：</p><p>  编码</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
+
+<span class=kn>import</span> <span class=p>(</span>
+  <span class=s>&#34;fmt&#34;</span>
+  <span class=s>&#34;encoding/json&#34;</span>
+<span class=p>)</span>
+
+<span class=kd>func</span> <span class=nf>main</span><span class=p>(){</span>
+  <span class=nx>mapA</span> <span class=o>:=</span> <span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>]</span><span class=kt>int</span><span class=p>{</span><span class=s>&#34;apple&#34;</span><span class=p>:</span> <span class=mi>5</span><span class=p>,</span> <span class=s>&#34;lettuce&#34;</span><span class=p>:</span> <span class=mi>7</span><span class=p>}</span>
+  <span class=nx>mapB</span><span class=p>,</span> <span class=nx>_</span> <span class=o>:=</span> <span class=nx>json</span><span class=p>.</span><span class=nf>Marshal</span><span class=p>(</span><span class=nx>mapA</span><span class=p>)</span>
+  <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nb>string</span><span class=p>(</span><span class=nx>mapB</span><span class=p>))</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>  解码</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
+
+<span class=kn>import</span> <span class=p>(</span>
+  <span class=s>&#34;fmt&#34;</span>
+  <span class=s>&#34;encoding/json&#34;</span>
+<span class=p>)</span>
+
+<span class=kd>type</span> <span class=nx>response</span> <span class=kd>struct</span> <span class=p>{</span>
+  <span class=nx>PageNumber</span> <span class=kt>int</span> <span class=s>`json:&#34;page&#34;`</span>
+  <span class=nx>Fruits</span> <span class=p>[]</span><span class=kt>string</span> <span class=s>`json:&#34;fruits&#34;`</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=nf>main</span><span class=p>(){</span>
+  <span class=nx>str</span> <span class=o>:=</span> <span class=s>`{&#34;page&#34;: 1, &#34;fruits&#34;: [&#34;apple&#34;, &#34;peach&#34;]}`</span>
+  <span class=nx>res</span> <span class=o>:=</span> <span class=nx>response</span><span class=p>{}</span>
+  <span class=nx>json</span><span class=p>.</span><span class=nf>Unmarshal</span><span class=p>([]</span><span class=nb>byte</span><span class=p>(</span><span class=nx>str</span><span class=p>),</span> <span class=o>&amp;</span><span class=nx>res</span><span class=p>)</span>
+  <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>res</span><span class=p>.</span><span class=nx>PageNumber</span><span class=p>)</span>
+<span class=p>}</span>
+<span class=c1>// 1
+</span></code></pre></td></tr></table></div></div><p>  在使用<code>Unmarshal</code>解码json字符串时，第一个参数是json字符串，第二个参数是我们希望json映射到的响应类型<code>struct</code>的地址。请注意，<code>json:"page"</code>映射页面键是结构中的<code>PageNumber</code>键。</p><h3 id=错误处理>错误处理</h3><h4 id=error>Error</h4><p>  错误<code>Error</code>是程序不被希望出现的意外的结果。假设我们正在对外部服务进行API调用，此API调用可能成功也可能失败。当存在错误类型时，我们就可以识别Go程序中的错误。看看下面这个例子：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=nx>resp</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>http</span><span class=p>.</span><span class=nf>Get</span><span class=p>(</span><span class=s>&#34;http://example.com/&#34;</span><span class=p>)</span>
+</code></pre></td></tr></table></div></div><p>  这里对错误对象的API调用可能会成功或失败。我们可以检查错误是否为<code>nil</code>，并处理响应：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
+
+<span class=kn>import</span> <span class=p>(</span>
+  <span class=s>&#34;fmt&#34;</span>
+  <span class=s>&#34;net/http&#34;</span>
+<span class=p>)</span>
+
+<span class=kd>func</span> <span class=nf>main</span><span class=p>(){</span>
+  <span class=nx>resp</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>http</span><span class=p>.</span><span class=nf>Get</span><span class=p>(</span><span class=s>&#34;http://example.com/&#34;</span><span class=p>)</span>
+  <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
+    <span class=k>return</span>
+  <span class=p>}</span>
+  <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>resp</span><span class=p>)</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><h5 id=自定义错误>自定义错误</h5><p>  当我们编写自己的函数时，有些情况下我们会遇到错误。可以在错误对象的帮助下返回这些错误：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>Increment</span><span class=p>(</span><span class=nx>n</span> <span class=kt>int</span><span class=p>)</span> <span class=p>(</span><span class=kt>int</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+  <span class=k>if</span> <span class=nx>n</span> <span class=p>&lt;</span> <span class=mi>0</span> <span class=p>{</span>
+    <span class=c1>// return error object
+</span><span class=c1></span>    <span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>errors</span><span class=p>.</span><span class=nf>New</span><span class=p>(</span><span class=s>&#34;math: cannot process negative number&#34;</span><span class=p>)</span>
+  <span class=p>}</span>
+  <span class=k>return</span> <span class=p>(</span><span class=nx>n</span> <span class=o>+</span> <span class=mi>1</span><span class=p>),</span> <span class=kc>nil</span>
+<span class=p>}</span>
+<span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+  <span class=nx>num</span> <span class=o>:=</span> <span class=mi>5</span>
+ 
+  <span class=k>if</span> <span class=nx>inc</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nf>Increment</span><span class=p>(</span><span class=nx>num</span><span class=p>);</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;Failed Number: %v, error message: %v&#34;</span><span class=p>,</span> <span class=nx>num</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+  <span class=p>}</span><span class=k>else</span> <span class=p>{</span>
+    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;Incremented Number: %v&#34;</span><span class=p>,</span> <span class=nx>inc</span><span class=p>)</span>
+  <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>  在Go中构建的大多数包或我们使用的外部包都有错误处理机制。所以我们调用的任何函数都可能存在错误。这些错误永远不应该被忽略，并且总是在我们称之为函数的地方优雅地处理，就像我们在上面的例子中所做的那样。</p><h4 id=panic>Panic</h4><p><code>panic</code>是一种未经处理的事件，在程序执行期间突然遇到。在Go中，<code>panic</code>不是处理程序中异常的理想方式。建议使用错误对象。发生<code>panic</code>时程序会停止执行。<code>panic</code>之后执行的事件就是<code>defer</code>。</p><h4 id=defer>Defer</h4><p>  <code>defer</code>总是在函数结束时执行。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
+
+<span class=kn>import</span> <span class=s>&#34;fmt&#34;</span>
+
+<span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+    <span class=nf>f</span><span class=p>()</span>
+    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Returned normally from f.&#34;</span><span class=p>)</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=nf>f</span><span class=p>()</span> <span class=p>{</span>
+    <span class=k>defer</span> <span class=kd>func</span><span class=p>()</span> <span class=p>{</span>
+        <span class=k>if</span> <span class=nx>r</span> <span class=o>:=</span> <span class=nb>recover</span><span class=p>();</span> <span class=nx>r</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+            <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Recovered in f&#34;</span><span class=p>,</span> <span class=nx>r</span><span class=p>)</span>
+        <span class=p>}</span>
+    <span class=p>}()</span>
+    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Calling g.&#34;</span><span class=p>)</span>
+    <span class=nf>g</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Returned normally from g.&#34;</span><span class=p>)</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=nf>g</span><span class=p>(</span><span class=nx>i</span> <span class=kt>int</span><span class=p>)</span> <span class=p>{</span>
+    <span class=k>if</span> <span class=nx>i</span> <span class=p>&gt;</span> <span class=mi>3</span> <span class=p>{</span>
+        <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Panicking!&#34;</span><span class=p>)</span>
+        <span class=nb>panic</span><span class=p>(</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Sprintf</span><span class=p>(</span><span class=s>&#34;%v&#34;</span><span class=p>,</span> <span class=nx>i</span><span class=p>))</span>
+    <span class=p>}</span>
+    <span class=k>defer</span> <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Defer in g&#34;</span><span class=p>,</span> <span class=nx>i</span><span class=p>)</span>
+    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Printing in g&#34;</span><span class=p>,</span> <span class=nx>i</span><span class=p>)</span>
+    <span class=nf>g</span><span class=p>(</span><span class=nx>i</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>  在上面的例子中，我们使用<code>panic()</code>来故意终止程序的执行。正如你所注意到的，有一个<code>defer</code>语句，它将使程序在程序执行结束时执行该行。当我们需要在函数结束时执行某些操作时，也可以使用<code>defer</code>，例如关闭文件。</p><h3 id=并发>并发</h3><p>  Go是建立在并发性的基础上的。Go中的并发可以通过轻量级线程的Go例程来实现。</p><h4 id=协程go-routine>协程(go routine)</h4><p>  go协程<code>routine</code>是可以与另一个函数并行或同时运行的函数。创建go协程非常简单。只需在函数前面添加关键字<code>go</code>，我们就可以使它并行执行。go协程非常轻量级，因此我们可以创建数千个协程。让我们看一个简单的例子：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
+<span class=kn>import</span> <span class=p>(</span>
+  <span class=s>&#34;fmt&#34;</span>
+  <span class=s>&#34;time&#34;</span>
+<span class=p>)</span>
+<span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+  <span class=k>go</span> <span class=nf>c</span><span class=p>()</span>
+  <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;I am main&#34;</span><span class=p>)</span>
+  <span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span> <span class=o>*</span> <span class=mi>2</span><span class=p>)</span>
+<span class=p>}</span>
+<span class=kd>func</span> <span class=nf>c</span><span class=p>()</span> <span class=p>{</span>
+  <span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span> <span class=o>*</span> <span class=mi>2</span><span class=p>)</span>
+  <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;I am concurrent&#34;</span><span class=p>)</span>
+<span class=p>}</span>
+<span class=c1>// I am main
+</span><span class=c1>// I am concurrent
+</span></code></pre></td></tr></table></div></div><p>  正如上面的示例，函数<code>c()</code>是一个Go协程，它与主Go线程并行执行。有时我们希望在多个线程之间共享资源。Go更倾向于一个线程的变量不与另一个线程共享，因为这会增加死锁和资源等待的可能性。还有另一种在Go协程之间共享资源的方法：管道<code>Channels</code>。</p><h4 id=管道channel>管道（channel）</h4><p>  我们可以使用通道在两个Go协程之间传递数据。在创建<code>channel</code>时，必须指定<code>channel</code>接收的数据类型。让我们创建一个字符串类型的简单<code>channel</code>，如下所示：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=nx>c</span> <span class=o>:=</span> <span class=nb>make</span><span class=p>(</span><span class=kd>chan</span> <span class=kt>string</span><span class=p>)</span>
+</code></pre></td></tr></table></div></div><p>  使用此<code>channel</code>，我们可以发送字符串类型数据。可以在此频道中<code>发送</code>和<code>接收</code>数据：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
+
+<span class=kn>import</span> <span class=s>&#34;fmt&#34;</span>
+
+<span class=kd>func</span> <span class=nf>main</span><span class=p>(){</span>
+  <span class=nx>c</span> <span class=o>:=</span> <span class=nb>make</span><span class=p>(</span><span class=kd>chan</span> <span class=kt>string</span><span class=p>)</span>
+  <span class=k>go</span> <span class=kd>func</span><span class=p>(){</span> <span class=nx>c</span> <span class=o>&lt;-</span> <span class=s>&#34;hello&#34;</span> <span class=p>}()</span>
+  <span class=nx>msg</span> <span class=o>:=</span> <span class=o>&lt;-</span><span class=nx>c</span>
+  <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>msg</span><span class=p>)</span>
+<span class=p>}</span>
+<span class=c1>//&#34;hello&#34;
+</span></code></pre></td></tr></table></div></div><p>  接收方等待发送方向<code>channel</code>发送数据。</p><h4 id=单向通道>单向通道</h4><p>  在某些情况下，我们希望Go协程通过<code>channel</code>接收数据但不发送数据，反之亦然。为此，我们还可以创建<strong>单向通道</strong>。让我们看一个简单的例子：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
+
+<span class=kn>import</span> <span class=p>(</span>
+ <span class=s>&#34;fmt&#34;</span>
+<span class=p>)</span>
+
+<span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+ <span class=nx>ch</span> <span class=o>:=</span> <span class=nb>make</span><span class=p>(</span><span class=kd>chan</span> <span class=kt>string</span><span class=p>)</span>
+ 
+ <span class=k>go</span> <span class=nf>sc</span><span class=p>(</span><span class=nx>ch</span><span class=p>)</span>
+ <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=o>&lt;-</span><span class=nx>ch</span><span class=p>)</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=nf>sc</span><span class=p>(</span><span class=nx>ch</span> <span class=kd>chan</span><span class=o>&lt;-</span> <span class=kt>string</span><span class=p>)</span> <span class=p>{</span>
+ <span class=nx>ch</span> <span class=o>&lt;-</span> <span class=s>&#34;hello&#34;</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>  在上面的例子中，sc是一个Go协程，它只能向通道发送消息但不能接收消息。</p><h4 id=使用select为go例程组织多个通道>使用select为Go例程组织多个通道</h4><p>  函数可能有多个通道正在等待执行。为此，我们可以使用select语句。让我们看一个更清晰的例子：：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
+
+<span class=kn>import</span> <span class=p>(</span>
+ <span class=s>&#34;fmt&#34;</span>
+ <span class=s>&#34;time&#34;</span>
+<span class=p>)</span>
+
+<span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+ <span class=nx>c1</span> <span class=o>:=</span> <span class=nb>make</span><span class=p>(</span><span class=kd>chan</span> <span class=kt>string</span><span class=p>)</span>
+ <span class=nx>c2</span> <span class=o>:=</span> <span class=nb>make</span><span class=p>(</span><span class=kd>chan</span> <span class=kt>string</span><span class=p>)</span>
+ <span class=k>go</span> <span class=nf>speed1</span><span class=p>(</span><span class=nx>c1</span><span class=p>)</span>
+ <span class=k>go</span> <span class=nf>speed2</span><span class=p>(</span><span class=nx>c2</span><span class=p>)</span>
+ <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;The first to arrive is:&#34;</span><span class=p>)</span>
+ <span class=k>select</span> <span class=p>{</span>
+ <span class=k>case</span> <span class=nx>s1</span> <span class=o>:=</span> <span class=o>&lt;-</span><span class=nx>c1</span><span class=p>:</span>
+  <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>s1</span><span class=p>)</span>
+ <span class=k>case</span> <span class=nx>s2</span> <span class=o>:=</span> <span class=o>&lt;-</span><span class=nx>c2</span><span class=p>:</span>
+  <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>s2</span><span class=p>)</span>
+ <span class=p>}</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=nf>speed1</span><span class=p>(</span><span class=nx>ch</span> <span class=kd>chan</span> <span class=kt>string</span><span class=p>)</span> <span class=p>{</span>
+ <span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>2</span> <span class=o>*</span> <span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span>
+ <span class=nx>ch</span> <span class=o>&lt;-</span> <span class=s>&#34;speed 1&#34;</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=nf>speed2</span><span class=p>(</span><span class=nx>ch</span> <span class=kd>chan</span> <span class=kt>string</span><span class=p>)</span> <span class=p>{</span>
+ <span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>1</span> <span class=o>*</span> <span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span>
+ <span class=nx>ch</span> <span class=o>&lt;-</span> <span class=s>&#34;speed 2&#34;</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>  在上面的示例中，<code>main</code>正在等待两个管道<code>c1</code>和<code>c2</code>。使用<code>select case</code>语句打印主函数，消息从管道发送，无论它先收到哪个。</p><h4 id=缓冲通道>缓冲通道</h4><p>  有些情况下我们需要向管道发送多个数据。可以为此创建缓冲通道<code>buffered channel</code>。使用缓冲通道，接收器在缓冲区已满之前不会收到消息。我们来看看这个例子：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
+
+<span class=kn>import</span> <span class=s>&#34;fmt&#34;</span>
+
+<span class=kd>func</span> <span class=nf>main</span><span class=p>(){</span>
+  <span class=nx>ch</span> <span class=o>:=</span> <span class=nb>make</span><span class=p>(</span><span class=kd>chan</span> <span class=kt>string</span><span class=p>,</span> <span class=mi>2</span><span class=p>)</span>
+  <span class=nx>ch</span> <span class=o>&lt;-</span> <span class=s>&#34;hello&#34;</span>
+  <span class=nx>ch</span> <span class=o>&lt;-</span> <span class=s>&#34;world&#34;</span>
+  <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=o>&lt;-</span><span class=nx>ch</span><span class=p>)</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><h3 id=结尾>结尾</h3><p><strong>为什么Golang会成功?</strong></p><blockquote><p><em>简单… — Rob-pike</em></p></blockquote><p>目前为止我们已经了解了Go的一些主要组件和功能：</p><ol><li>变量，数据类型</li><li>Array、Slices和Map</li><li>函数</li><li>循环和条件语句</li><li>指针</li><li>包</li><li>结构、方法和接口</li><li>错误处理</li><li>并发 - Go routine和channel</li></ol><p><em>恭喜你，你现在对Go有了不错的认识。</em></p><blockquote><p><em> </em> <em>抛弃了1000行代码的那天是我最富有成效的日子之一。</em></p><p><em> </em> <em> </em> <em> </em> <em> </em> <em> </em> <em> </em> <em> </em> <em> </em> <em> </em> <em>— Ken Thompson</em></p></blockquote><p>不要止步于此，继续前进。在大脑中思考一个小规模的应用程序并开始构建。</p></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>🐒</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2019-02-28</span></p></div><footer class=post-footer><div class=post-tags><a href=/tags/go/>Go</a></div><nav class=post-nav><a class=prev href=/post/2019-03-14-1/><i class="iconfont icon-left"></i><span class="prev-text nav-default">Protobuf总结</span>
+<span class="prev-text nav-mobile">上一篇</span></a>
+<a class=next href=/post/2019-02-22-1/><span class="next-text nav-default">learning-go-from-zero-to-hero-part1</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div></div></main><footer id=footer class=footer><div class=social-links><a href=lc91926@email.com class="iconfont icon-email" title=email></a><a href=https://www.facebook.com/nervebing class="iconfont icon-facebook" title=facebook></a><a href=https://github.com/NERVEbing class="iconfont icon-github" title=github></a><a href=https://www.zhihu.com/people/nervebing class="iconfont icon-zhihu" title=zhihu></a><a href=https://www.douban.com/people/157489011 class="iconfont icon-douban" title=douban></a><a href=https://space.bilibili.com/107943895 class="iconfont icon-bilibili" title=bilibili></a><a href=https://lvlv.tech/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
+<span class=division>|</span>
+<span class=theme-info>Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span><div class=busuanzi-footer><span id=busuanzi_container_site_pv>本站总访问量 <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次</span>
+<span class=division>|</span>
+<span id=busuanzi_container_site_uv>本站总访客数 <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span> 人</span></div><span class=copyright-year>&copy;
+2018 -
+2020
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>🐒</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-136130525-2','auto');ga('set','anonymizeIp',true);ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
