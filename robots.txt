@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: https://lvlv.fun/sitemap.xml
+Sitemap: https://nervebing.github.io/sitemap.xml
