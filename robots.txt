@@ -1,2 +1,3 @@
 User-agent: *
+Disallow:
 Sitemap: https://nervebing.github.io/sitemap.xml

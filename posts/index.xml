@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on LvLv&#39;s Blog.</title>
+    <link>https://nervebing.github.io/posts/</link>
+    <description>Recent content in Posts on LvLv&#39;s Blog.</description>
+    <image>
+      <url>https://nervebing.github.io/</url>
+      <link>https://nervebing.github.io/</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 29 Oct 2019 19:12:30 +0800</lastBuildDate><atom:link href="https://nervebing.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL/innoDB内部实现</title>
+      <link>https://nervebing.github.io/posts/2019-10-29-1/</link>
+      <pubDate>Tue, 29 Oct 2019 19:12:30 +0800</pubDate>
+      
+      <guid>https://nervebing.github.io/posts/2019-10-29-1/</guid>
+      <description>MySQL存储结构  B-tree 是平衡的多路查找树。 涉及到磁盘的查找需要设法减少磁盘 I/O 次数。 B-tree 就是为解决这个问题而引入的数据结构。   区别于二叉树 b-tree 可以拥有很多个子节点（这个度量被称为「内结点出度」) 我们可以在技术上使 B-tree 的结点大小为磁盘一个页的大小，并且在新建结点时直接申请一个页大小的空间，使得结点的物理存储位置也是在一个页里，这样就能实现存取一个结点只需一次磁盘 I/O 在最坏情况下，B-tree 的一次检索最多需要H（树的高度）次的磁盘 I/O 实际上，为了取得更大的内结点出度，各个数据库一般会采用 B-tree的变种如 B+-tree，B*-tree 来实现索引，比如 MySQL 的存储引擎 InnoDB 就采用 B+-tree 来实现聚簇索引  索引  字符串索引，长度限制 innodb 存储引擎，默认前缀长度最大能支持767字节；而在开启innodb_large_prefix属性值的情况下，最大能支持3072字节 前缀索引，后缀索引，手动md5哈希索引 innode内置哈希 Cardinality 不重复值预估 ，除以记录总数的比例 尽量接近1 索引的价值越大 查询优化器 选择索引时会考虑这个值 oltp olap Online Analytical Processing Online transaction processing  索引细节  单列索引币复合索引在每个数据页存的记录要多，所以查询优化器优先使用单列索引 覆盖索引 数据最小读取单位(索引页？) count(*) 操作，实际会读取辅助索引，避免读取聚合索引 统计操作，覆盖索引的情况下，可以直接查询复合索引(a,b) 中的b index hint 索引提示 use index 只是提示，force index才是强制 multi-range read 优化 从辅助索引筛选完之后，将结果，已主键进行排序，再去读聚合索引下的记录行 index condition pushdown （IPC）优化，将where 过滤条件推送到存储引擎，减少数据传输 (使用时会提示 using index condition) innodb 全文索引 使用倒排索引实现 ，使用了FTS Index Cache 缓存数据变更，批量更新到Auxiliary Table中(这个表可以通过关键词定位到文档，单词位置)  锁   myisam 只支持表锁，sql server 2005版之前只支持页锁，2005开始支持行锁，但是实现方式与innodb不同，加锁会有资源开销，innodb则与oracle 的锁实现类似</description>
+    </item>
+    
+    <item>
+      <title>gRPC Connection reset by peer 问题</title>
+      <link>https://nervebing.github.io/posts/2019-07-22-1/</link>
+      <pubDate>Mon, 22 Jul 2019 12:40:20 +0800</pubDate>
+      
+      <guid>https://nervebing.github.io/posts/2019-07-22-1/</guid>
+      <description>前提 因产品需求，需用PHP（v7.0.12）调用k8s集群中gRPC（golang@1.12.0）服务。
+问题 经过dev环境测试，当php-fpm启动后第一次调用或者距离上次调用时间20分钟后左右，再次请求gRPC微服务接口，就会返回 Connection reset by peer 错误，说明gRPC服务端或者客户端主动关闭连接了。继续发起请求到服务端，又恢复正常。
+思考 经查阅相关资料，发现问题可能出现在k8s集群的kube-proxy模式上。当前k8s环境(dev)下的kube-proxy为ipvs模式，服务端与客户端之间通信如下：
+把上图client看成是apsopen-inside服务pod，Backend pod(1~3)看成gRPC服务，可以看出它们之间的交互路径：
+1 2 3   ---&amp;gt; gRPC server pod1 gRPC-client ---&amp;gt; ipvs ---&amp;gt; gRPC server pod3  ---&amp;gt; gRPC server pod3   我们知道gRPC是基于HTTP/2协议的，gRPC的client和server在交互时会建立多条连接，为了性能，这些连接都是长连接并且是一直保活的。 这段环境中不管是客户端服务还是gRPC服务都被调度到各个相同配置信息的Kubernetes节点上，这些k8s节点的 keep-alive 是一致的，如果出现连接主动关闭的问题，因为从client到server经历了一层ipvs，所以最大的可能就是ipvs出将连接主动断开，而client端还不知情。 搜索 ipvs timeout 关键字找到了下面相关的链接：
+ https://github.com/moby/moby/issues/31208 https://success.docker.com/article/ipvs-connection-timeout-issue https://github.com/kubernetes/kubernetes/issues/32457  其中 https://github.com/moby/moby/issues/31208 中是关于docker swarm在overlay网络下长连接的问题，这个和k8s kube-proxy应该是类似的，按照这个链接中的描述查看 我们这套环境关于tcp keepalive的内核参数：
+1 2 3 4 5 6  #进入igo-util-shorturi容器  sysctl net.ipv4.tcp_keepalive_time net.ipv4.tcp_keepalive_probes net.ipv4.tcp_keepalive_intvl net.ipv4.tcp_keepalive_time = 7200 net.</description>
+    </item>
+    
+    <item>
+      <title>gRPC error code</title>
+      <link>https://nervebing.github.io/posts/2019-06-12-1/</link>
+      <pubDate>Wed, 12 Jun 2019 20:04:20 +0800</pubDate>
+      
+      <guid>https://nervebing.github.io/posts/2019-06-12-1/</guid>
+      <description>RPC.response.status.code HTTP RPC Description     0 - OK 200 OK Not an error; returned on success.   1 - CANCELLED 499 Client Closed Request The operation was cancelled, typically by the caller.   2 - UNKNOWN 500 Internal Server Error Unknown error. For example, this error may be returned when a Status value received from another address space belongs to an error space that is not known in this address space.</description>
+    </item>
+    
+    <item>
+      <title>Protobuf总结</title>
+      <link>https://nervebing.github.io/posts/2019-03-14-1/</link>
+      <pubDate>Thu, 14 Mar 2019 11:18:20 +0800</pubDate>
+      
+      <guid>https://nervebing.github.io/posts/2019-03-14-1/</guid>
+      <description>Protobuf是什么  Protobuf是一种平台无关、语言无关、可扩展且轻便高效的序列化数据结构的协议，可以用于通信协议和数据存储等。  传输协议 - 如json、XML IDL - 接口描述语言 存储格式 - 序列化压缩后存储到数据库   核心竞争力  向前向后兼容性 - 新老版本兼容，无需考虑版本升级 多语言代码生成 - 支持Java、Python、PHP、Go等编程语言 快&amp;amp;小 - 序列化、反序列化速度快，压缩比优秀    关键技术 varints编码  每个字节使用其中7位保存数字，最高位表示后面是否还有内容 低位在前，高位在后 保留了fixed32和fixed64，用于传递大的正数 int32、int64、unit32、uint64、bool，序列化结果相互兼容，可以修改  zigzag编码  传统上，负数最高位为1，小负数会浪费编码长度 (n&amp;lt;&amp;lt;1)^(n&amp;gt;&amp;gt;31) -1将会被编码成1，1将会编码成2，-2将会被编码成3 sint32和sint64使用zigzag编码  message structure编码  Tag-Value编码 Tag=(field_number&amp;lt;&amp;lt;3)|wire_type-&amp;gt;varints wire_type:0表示varints，1表示固定64位，5表示固定32位 wire_type:2表示Tag-Length-Value编码（TLV），Length使用varints string、bytes、message嵌套，都采用TLV编码  wire_type只有0、1、2、5，那么3和4去哪了？—被废除了
+repeated编码   第一种方式：重复出现的相同tag
+  第二种方式：(packed=true)，TLVVV…编码
+仅有数字类型才可以使用第二种方法，protocol buffers 3（pb3）中默认第二种，pb2中需要指定，第一种任何情况下会被支持
+非repeated情况出现重复tag，后面的覆盖前面的，因此optional和repeated相互兼容
+  Map编码 map&amp;lt;key_type,value_type&amp;gt;map_field=N
+序列化结果完全等价于：</description>
+    </item>
+    
+    <item>
+      <title>learning-go-from-zero-to-hero-part2</title>
+      <link>https://nervebing.github.io/posts/2019-02-28-1/</link>
+      <pubDate>Thu, 28 Feb 2019 13:34:06 +0800</pubDate>
+      
+      <guid>https://nervebing.github.io/posts/2019-02-28-1/</guid>
+      <description>作者：Milap Neupane
+链接：https://medium.freecodecamp.org/learning-go-from-zero-to-hero-d2a3223b3d86
+ 函数  main.go包中定义的func main()是执行程序的入口。可以定义和使用更多函数。让我们看一个简单的例子：
+1 2 3 4 5 6 7 8  func add(a int, b int) int {  c := a + b  return c } func main() {  fmt.Println(add(2, 1)) } // 3    正如我们在上面的例子中所看到的，使用**func关键字后跟函数名来定义Go函数。函数所需的参数**需要根据其数据类型定义，最后是返回的数据类型。
+ 函数的返回也可以在函数中预定义：
+1 2 3 4 5 6 7 8  func add(a int, b int) (c int) {  c = a + b  return } func main() {  fmt.</description>
+    </item>
+    
+    <item>
+      <title>learning-go-from-zero-to-hero-part1</title>
+      <link>https://nervebing.github.io/posts/2019-02-22-1/</link>
+      <pubDate>Fri, 22 Feb 2019 18:47:53 +0800</pubDate>
+      
+      <guid>https://nervebing.github.io/posts/2019-02-22-1/</guid>
+      <description>作者：Milap Neupane
+链接：https://medium.freecodecamp.org/learning-go-from-zero-to-hero-d2a3223b3d86
+ 开始  想到刚开始学习Go的时候，也是不清不楚地本着拿来能用就行的心态，没有系统学习，导致学习过程中踩坑无数。今天发现一篇文章写的很好，Go语言的特征讲得很细，翻译给需要的初学Go的同学。
+前言  让我们从Go（或者称为Golang）的一个小介绍开始。Go由Google工程师Robert Griesemer，Rob Pike和Ken Thompson设计。它是一种静态类型的编译语言。第一个版本于2012年3月作为开源发布。
+  “ Go是一种开源编程语言，可以轻松构建简单，可靠，高效的软件 ”
+  在许多语言中，有许多方法可以解决给定的问题。程序员可以花很多时间思考解决问题的最佳方法。
+ 另一方面，Go相信更少的功能 — 只有一种正确的方法来解决问题。
+ 这节省了开发人员的时间，并使大型代码库易于维护。
+  “ 功能越多，成本越高 ” — Rob Pike
+ 入门  Go由package组成。名为main的包告诉Go编译器被编译为可执行文件，而不是作为library被引用。它是应用程序的主入口。主包定义为：
+1  package main    让我们在Go工作区中创建一个简单的hello world示例。
+工作区  Go中的工作空间由环境变量定义，称为 GOPATH。
+ 你的任何代码都将写在工作区内。Go将搜索GOPATH目录中的任何包，或者GOROOT在安装Go时默认设置的目录。注：GOROOT 是安装go的路径。
+ 设置GOPATH为所需的目录。现在，让我们将其添加到文件夹中~/workspace。
+1 2 3 4  # 定义GOPATH目录 export GOPATH=~/workspace # 进入工作区目录 cd ~/workspace    在我们刚刚创建的工作区文件夹中创建main.</description>
+    </item>
+    
+  </channel>
+</rss>
