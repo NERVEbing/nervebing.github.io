@@ -13,10 +13,10 @@
     <lastBuildDate>Tue, 29 Oct 2019 19:12:30 +0800</lastBuildDate><atom:link href="https://nervebing.github.io/tags/innodb/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MySQL/innoDB内部实现</title>
-      <link>https://nervebing.github.io/posts/2019-10-29-1/</link>
+      <link>https://nervebing.github.io/posts/2019-10-29/</link>
       <pubDate>Tue, 29 Oct 2019 19:12:30 +0800</pubDate>
       
-      <guid>https://nervebing.github.io/posts/2019-10-29-1/</guid>
+      <guid>https://nervebing.github.io/posts/2019-10-29/</guid>
       <description>MySQL存储结构  B-tree 是平衡的多路查找树。 涉及到磁盘的查找需要设法减少磁盘 I/O 次数。 B-tree 就是为解决这个问题而引入的数据结构。   区别于二叉树 b-tree 可以拥有很多个子节点（这个度量被称为「内结点出度」) 我们可以在技术上使 B-tree 的结点大小为磁盘一个页的大小，并且在新建结点时直接申请一个页大小的空间，使得结点的物理存储位置也是在一个页里，这样就能实现存取一个结点只需一次磁盘 I/O 在最坏情况下，B-tree 的一次检索最多需要H（树的高度）次的磁盘 I/O 实际上，为了取得更大的内结点出度，各个数据库一般会采用 B-tree的变种如 B+-tree，B*-tree 来实现索引，比如 MySQL 的存储引擎 InnoDB 就采用 B+-tree 来实现聚簇索引  索引  字符串索引，长度限制 innodb 存储引擎，默认前缀长度最大能支持767字节；而在开启innodb_large_prefix属性值的情况下，最大能支持3072字节 前缀索引，后缀索引，手动md5哈希索引 innode内置哈希 Cardinality 不重复值预估 ，除以记录总数的比例 尽量接近1 索引的价值越大 查询优化器 选择索引时会考虑这个值 oltp olap Online Analytical Processing Online transaction processing  索引细节  单列索引币复合索引在每个数据页存的记录要多，所以查询优化器优先使用单列索引 覆盖索引 数据最小读取单位(索引页？) count(*) 操作，实际会读取辅助索引，避免读取聚合索引 统计操作，覆盖索引的情况下，可以直接查询复合索引(a,b) 中的b index hint 索引提示 use index 只是提示，force index才是强制 multi-range read 优化 从辅助索引筛选完之后，将结果，已主键进行排序，再去读聚合索引下的记录行 index condition pushdown （IPC）优化，将where 过滤条件推送到存储引擎，减少数据传输 (使用时会提示 using index condition) innodb 全文索引 使用倒排索引实现 ，使用了FTS Index Cache 缓存数据变更，批量更新到Auxiliary Table中(这个表可以通过关键词定位到文档，单词位置)  锁   myisam 只支持表锁，sql server 2005版之前只支持页锁，2005开始支持行锁，但是实现方式与innodb不同，加锁会有资源开销，innodb则与oracle 的锁实现类似</description>
     </item>
     

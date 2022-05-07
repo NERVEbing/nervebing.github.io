@@ -10,13 +10,13 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 28 Feb 2019 13:34:06 +0800</lastBuildDate><atom:link href="https://nervebing.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 28 Dec 2018 13:34:06 +0800</lastBuildDate><atom:link href="https://nervebing.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>learning-go-from-zero-to-hero-part2</title>
-      <link>https://nervebing.github.io/posts/2019-02-28-1/</link>
-      <pubDate>Thu, 28 Feb 2019 13:34:06 +0800</pubDate>
+      <link>https://nervebing.github.io/posts/2018-12-28/</link>
+      <pubDate>Fri, 28 Dec 2018 13:34:06 +0800</pubDate>
       
-      <guid>https://nervebing.github.io/posts/2019-02-28-1/</guid>
+      <guid>https://nervebing.github.io/posts/2018-12-28/</guid>
       <description>作者：Milap Neupane
 链接：https://medium.freecodecamp.org/learning-go-from-zero-to-hero-d2a3223b3d86
  函数  main.go包中定义的func main()是执行程序的入口。可以定义和使用更多函数。让我们看一个简单的例子：
@@ -27,10 +27,10 @@
     
     <item>
       <title>learning-go-from-zero-to-hero-part1</title>
-      <link>https://nervebing.github.io/posts/2019-02-22-1/</link>
-      <pubDate>Fri, 22 Feb 2019 18:47:53 +0800</pubDate>
+      <link>https://nervebing.github.io/posts/2018-12-22/</link>
+      <pubDate>Sat, 22 Dec 2018 18:47:53 +0800</pubDate>
       
-      <guid>https://nervebing.github.io/posts/2019-02-22-1/</guid>
+      <guid>https://nervebing.github.io/posts/2018-12-22/</guid>
       <description>作者：Milap Neupane
 链接：https://medium.freecodecamp.org/learning-go-from-zero-to-hero-d2a3223b3d86
  开始  想到刚开始学习Go的时候，也是不清不楚地本着拿来能用就行的心态，没有系统学习，导致学习过程中踩坑无数。今天发现一篇文章写的很好，Go语言的特征讲得很细，翻译给需要的初学Go的同学。
