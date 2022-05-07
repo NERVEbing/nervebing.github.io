@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Problem on LvLv&#39;s Blog.</title>
-    <link>https://nervebing.github.io/tags/problem/</link>
+    <link>https://blog.lvlv.fun/tags/problem/</link>
     <description>Recent content in Problem on LvLv&#39;s Blog.</description>
     <image>
-      <url>https://nervebing.github.io/</url>
-      <link>https://nervebing.github.io/</link>
+      <url>https://blog.lvlv.fun/</url>
+      <link>https://blog.lvlv.fun/</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 22 Jul 2019 12:40:20 +0800</lastBuildDate><atom:link href="https://nervebing.github.io/tags/problem/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 22 Jul 2019 12:40:20 +0800</lastBuildDate><atom:link href="https://blog.lvlv.fun/tags/problem/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>gRPC Connection reset by peer 问题</title>
-      <link>https://nervebing.github.io/posts/2019-07-22/</link>
+      <link>https://blog.lvlv.fun/posts/2019-07-22/</link>
       <pubDate>Mon, 22 Jul 2019 12:40:20 +0800</pubDate>
       
-      <guid>https://nervebing.github.io/posts/2019-07-22/</guid>
+      <guid>https://blog.lvlv.fun/posts/2019-07-22/</guid>
       <description>前提 因产品需求，需用PHP（v7.0.12）调用k8s集群中gRPC（golang@1.12.0）服务。
 问题 经过dev环境测试，当php-fpm启动后第一次调用或者距离上次调用时间20分钟后左右，再次请求gRPC微服务接口，就会返回 Connection reset by peer 错误，说明gRPC服务端或者客户端主动关闭连接了。继续发起请求到服务端，又恢复正常。
 思考 经查阅相关资料，发现问题可能出现在k8s集群的kube-proxy模式上。当前k8s环境(dev)下的kube-proxy为ipvs模式，服务端与客户端之间通信如下：
