@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>LvLv&#39;s Blog.</title>
-    <link>https://nervebing.github.io/</link>
+    <link>https://blog.lvlv.fun/</link>
     <description>Recent content on LvLv&#39;s Blog.</description>
     <image>
-      <url>https://nervebing.github.io/apple_touch_icon.png</url>
-      <link>https://nervebing.github.io/apple_touch_icon.png</link>
+      <url>https://blog.lvlv.fun/apple_touch_icon.png</url>
+      <link>https://blog.lvlv.fun/apple_touch_icon.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 08 May 2022 11:09:36 +0800</lastBuildDate><atom:link href="https://nervebing.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 08 May 2022 11:09:36 +0800</lastBuildDate><atom:link href="https://blog.lvlv.fun/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>基于HPE MicroServer Gen10 Plus的HomeLab搭建 - 硬件篇</title>
-      <link>https://nervebing.github.io/posts/2022-05-08/</link>
+      <link>https://blog.lvlv.fun/posts/2022-05-08/</link>
       <pubDate>Sun, 08 May 2022 11:09:36 +0800</pubDate>
       
-      <guid>https://nervebing.github.io/posts/2022-05-08/</guid>
+      <guid>https://blog.lvlv.fun/posts/2022-05-08/</guid>
       <description>前言 声明 本文是个人对家庭私有云服务即HomeLab的学习探索，参杂着一些经验总结，记录下来，也希望可以让他人少走一些弯路。
 HomeLab有什么用？  搭建属于私人的网盘，不必在各个设备上安装云盘app才能上传/下载文件 不受版权控制的家庭多媒体，集成影视订阅，实现观影追剧自由 集成HomeBridge以实现在iOS/macOS的Home.app中操作非HomeKit认证的设备 BT下载器，无需开启个人电脑，后台下载资源 RSS订阅器，抛弃无意义地刷手机，只获取自己想要的内容 bilibili每日任务/JD京豆获取，各种脚本反薅资本家的羊毛 最重要的是你可以搭建包括但不限于K8S/ELK/MySQL/Redis/Prometheus等各种服务，也可以在上面跑CI/CD自动化构建发布你的代码  阅读门槛  基本的网络知识，比如光猫和路由器的区别，交换机是干什么的 基本的Linux操作，可以理解计算机不是一定要连接显示器才可以操作 遇到问题先使用英文进行Google，内容过长可以开启页面翻译，请不要看CSDN的内容 不求甚解，当你发现你让它跑起来了的时候，会获得极大的心理满足感  我只会开关机 先按住command，再按一下w按键。
 TODO&amp;hellip;
@@ -25,19 +25,19 @@ TODO&amp;hellip;
     
     <item>
       <title>MySQL/innoDB内部实现</title>
-      <link>https://nervebing.github.io/posts/2019-10-29/</link>
+      <link>https://blog.lvlv.fun/posts/2019-10-29/</link>
       <pubDate>Tue, 29 Oct 2019 19:12:30 +0800</pubDate>
       
-      <guid>https://nervebing.github.io/posts/2019-10-29/</guid>
+      <guid>https://blog.lvlv.fun/posts/2019-10-29/</guid>
       <description>MySQL存储结构  B-tree 是平衡的多路查找树。 涉及到磁盘的查找需要设法减少磁盘 I/O 次数。 B-tree 就是为解决这个问题而引入的数据结构。   区别于二叉树 b-tree 可以拥有很多个子节点（这个度量被称为「内结点出度」) 我们可以在技术上使 B-tree 的结点大小为磁盘一个页的大小，并且在新建结点时直接申请一个页大小的空间，使得结点的物理存储位置也是在一个页里，这样就能实现存取一个结点只需一次磁盘 I/O 在最坏情况下，B-tree 的一次检索最多需要H（树的高度）次的磁盘 I/O 实际上，为了取得更大的内结点出度，各个数据库一般会采用 B-tree的变种如 B+-tree，B*-tree 来实现索引，比如 MySQL 的存储引擎 InnoDB 就采用 B+-tree 来实现聚簇索引  索引  字符串索引，长度限制 innodb 存储引擎，默认前缀长度最大能支持767字节；而在开启innodb_large_prefix属性值的情况下，最大能支持3072字节 前缀索引，后缀索引，手动md5哈希索引 innode内置哈希 Cardinality 不重复值预估 ，除以记录总数的比例 尽量接近1 索引的价值越大 查询优化器 选择索引时会考虑这个值 oltp olap Online Analytical Processing Online transaction processing  索引细节  单列索引币复合索引在每个数据页存的记录要多，所以查询优化器优先使用单列索引 覆盖索引 数据最小读取单位(索引页？) count(*) 操作，实际会读取辅助索引，避免读取聚合索引 统计操作，覆盖索引的情况下，可以直接查询复合索引(a,b) 中的b index hint 索引提示 use index 只是提示，force index才是强制 multi-range read 优化 从辅助索引筛选完之后，将结果，已主键进行排序，再去读聚合索引下的记录行 index condition pushdown （IPC）优化，将where 过滤条件推送到存储引擎，减少数据传输 (使用时会提示 using index condition) innodb 全文索引 使用倒排索引实现 ，使用了FTS Index Cache 缓存数据变更，批量更新到Auxiliary Table中(这个表可以通过关键词定位到文档，单词位置)  锁   myisam 只支持表锁，sql server 2005版之前只支持页锁，2005开始支持行锁，但是实现方式与innodb不同，加锁会有资源开销，innodb则与oracle 的锁实现类似</description>
     </item>
     
     <item>
       <title>gRPC Connection reset by peer 问题</title>
-      <link>https://nervebing.github.io/posts/2019-07-22/</link>
+      <link>https://blog.lvlv.fun/posts/2019-07-22/</link>
       <pubDate>Mon, 22 Jul 2019 12:40:20 +0800</pubDate>
       
-      <guid>https://nervebing.github.io/posts/2019-07-22/</guid>
+      <guid>https://blog.lvlv.fun/posts/2019-07-22/</guid>
       <description>前提 因产品需求，需用PHP（v7.0.12）调用k8s集群中gRPC（golang@1.12.0）服务。
 问题 经过dev环境测试，当php-fpm启动后第一次调用或者距离上次调用时间20分钟后左右，再次请求gRPC微服务接口，就会返回 Connection reset by peer 错误，说明gRPC服务端或者客户端主动关闭连接了。继续发起请求到服务端，又恢复正常。
 思考 经查阅相关资料，发现问题可能出现在k8s集群的kube-proxy模式上。当前k8s环境(dev)下的kube-proxy为ipvs模式，服务端与客户端之间通信如下：
@@ -49,19 +49,19 @@ TODO&amp;hellip;
     
     <item>
       <title>gRPC error code</title>
-      <link>https://nervebing.github.io/posts/2019-06-12/</link>
+      <link>https://blog.lvlv.fun/posts/2019-06-12/</link>
       <pubDate>Wed, 12 Jun 2019 20:04:20 +0800</pubDate>
       
-      <guid>https://nervebing.github.io/posts/2019-06-12/</guid>
+      <guid>https://blog.lvlv.fun/posts/2019-06-12/</guid>
       <description>RPC.response.status.code HTTP RPC Description     0 - OK 200 OK Not an error; returned on success.   1 - CANCELLED 499 Client Closed Request The operation was cancelled, typically by the caller.   2 - UNKNOWN 500 Internal Server Error Unknown error. For example, this error may be returned when a Status value received from another address space belongs to an error space that is not known in this address space.</description>
     </item>
     
     <item>
       <title>Protobuf总结</title>
-      <link>https://nervebing.github.io/posts/2019-03-14/</link>
+      <link>https://blog.lvlv.fun/posts/2019-03-14/</link>
       <pubDate>Thu, 14 Mar 2019 11:18:20 +0800</pubDate>
       
-      <guid>https://nervebing.github.io/posts/2019-03-14/</guid>
+      <guid>https://blog.lvlv.fun/posts/2019-03-14/</guid>
       <description>Protobuf是什么  Protobuf是一种平台无关、语言无关、可扩展且轻便高效的序列化数据结构的协议，可以用于通信协议和数据存储等。  传输协议 - 如json、XML IDL - 接口描述语言 存储格式 - 序列化压缩后存储到数据库   核心竞争力  向前向后兼容性 - 新老版本兼容，无需考虑版本升级 多语言代码生成 - 支持Java、Python、PHP、Go等编程语言 快&amp;amp;小 - 序列化、反序列化速度快，压缩比优秀    关键技术 varints编码  每个字节使用其中7位保存数字，最高位表示后面是否还有内容 低位在前，高位在后 保留了fixed32和fixed64，用于传递大的正数 int32、int64、unit32、uint64、bool，序列化结果相互兼容，可以修改  zigzag编码  传统上，负数最高位为1，小负数会浪费编码长度 (n&amp;lt;&amp;lt;1)^(n&amp;gt;&amp;gt;31) -1将会被编码成1，1将会编码成2，-2将会被编码成3 sint32和sint64使用zigzag编码  message structure编码  Tag-Value编码 Tag=(field_number&amp;lt;&amp;lt;3)|wire_type-&amp;gt;varints wire_type:0表示varints，1表示固定64位，5表示固定32位 wire_type:2表示Tag-Length-Value编码（TLV），Length使用varints string、bytes、message嵌套，都采用TLV编码  wire_type只有0、1、2、5，那么3和4去哪了？—被废除了
 repeated编码   第一种方式：重复出现的相同tag
   第二种方式：(packed=true)，TLVVV…编码
@@ -73,10 +73,10 @@ repeated编码   第一种方式：重复出现的相同tag
     
     <item>
       <title>learning-go-from-zero-to-hero-part2</title>
-      <link>https://nervebing.github.io/posts/2018-12-28/</link>
+      <link>https://blog.lvlv.fun/posts/2018-12-28/</link>
       <pubDate>Fri, 28 Dec 2018 13:34:06 +0800</pubDate>
       
-      <guid>https://nervebing.github.io/posts/2018-12-28/</guid>
+      <guid>https://blog.lvlv.fun/posts/2018-12-28/</guid>
       <description>作者：Milap Neupane
 链接：https://medium.freecodecamp.org/learning-go-from-zero-to-hero-d2a3223b3d86
  函数  main.go包中定义的func main()是执行程序的入口。可以定义和使用更多函数。让我们看一个简单的例子：
@@ -87,10 +87,10 @@ repeated编码   第一种方式：重复出现的相同tag
     
     <item>
       <title>learning-go-from-zero-to-hero-part1</title>
-      <link>https://nervebing.github.io/posts/2018-12-22/</link>
+      <link>https://blog.lvlv.fun/posts/2018-12-22/</link>
       <pubDate>Sat, 22 Dec 2018 18:47:53 +0800</pubDate>
       
-      <guid>https://nervebing.github.io/posts/2018-12-22/</guid>
+      <guid>https://blog.lvlv.fun/posts/2018-12-22/</guid>
       <description>作者：Milap Neupane
 链接：https://medium.freecodecamp.org/learning-go-from-zero-to-hero-d2a3223b3d86
  开始  想到刚开始学习Go的时候，也是不清不楚地本着拿来能用就行的心态，没有系统学习，导致学习过程中踩坑无数。今天发现一篇文章写的很好，Go语言的特征讲得很细，翻译给需要的初学Go的同学。
