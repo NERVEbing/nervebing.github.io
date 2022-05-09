@@ -12,15 +12,19 @@
     <language>en</language>
     <lastBuildDate>Sun, 08 May 2022 11:09:36 +0800</lastBuildDate><atom:link href="https://blog.lvlv.fun/tags/homelab/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>基于HPE MicroServer Gen10 Plus的HomeLab搭建 - 硬件篇</title>
+      <title>基于HPEMicroServer Gen10 Plus的HomeLab搭建 - 硬件篇</title>
       <link>https://blog.lvlv.fun/posts/2022-05-08/</link>
       <pubDate>Sun, 08 May 2022 11:09:36 +0800</pubDate>
       
       <guid>https://blog.lvlv.fun/posts/2022-05-08/</guid>
-      <description>前言 声明 本文是个人对家庭私有云服务即HomeLab的学习探索，参杂着一些经验总结，记录下来，也希望可以让他人少走一些弯路。
-HomeLab有什么用？  搭建属于私人的网盘，不必在各个设备上安装云盘app才能上传/下载文件 不受版权控制的家庭多媒体，集成影视订阅，实现观影追剧自由 集成HomeBridge以实现在iOS/macOS的Home.app中操作非HomeKit认证的设备 BT下载器，无需开启个人电脑，后台下载资源 RSS订阅器，抛弃无意义地刷手机，只获取自己想要的内容 bilibili每日任务/JD京豆获取，各种脚本反薅资本家的羊毛 最重要的是你可以搭建包括但不限于K8S/ELK/MySQL/Redis/Prometheus等各种服务，也可以在上面跑CI/CD自动化构建发布你的代码  阅读门槛  基本的网络知识，比如光猫和路由器的区别，交换机是干什么的 基本的Linux操作，可以理解计算机不是一定要连接显示器才可以操作 遇到问题先使用英文进行Google，内容过长可以开启页面翻译，请不要看CSDN的内容 不求甚解，当你发现你让它跑起来了的时候，会获得极大的心理满足感  我只会开关机 先按住command，再按一下w按键。
-TODO&amp;hellip;
-设备 服务器 CPU 内存 PCIe选择 网络设备 斐讯N1 Wi-Fi Mesh UPS不间断电源 其他 价格清单 </description>
+      <description>前言 声明 本文是个人对HomeLab即家庭私有实验室的学习探索，参杂着一些经验总结，记录下来，也希望可以让他人少走一些弯路。
+HomeLab是什么？ 本质上是一个连接各种设备的复杂系统，你可以用任何树莓派/PC/服务器/路由器组成一个HomeLab。
+HomeLab有什么用？  搭建属于私人的网盘，不必在各个设备上安装云盘app才能上传/下载文件 不受版权控制的家庭多媒体，集成影视订阅，实现观影追剧自由 集成HomeBridge以实现在iOS/macOS的Home.app中操作非HomeKit认证的设备 BT下载器，无需开启个人电脑，后台下载资源 RSS订阅器，抛弃无意义地刷手机，只获取自己想要的内容 bilibili每日任务/JD京豆获取，各种脚本反薅资本家的羊毛 最重要的是你可以搭建包括但不限于K8S/ELK/MySQL/Redis/Prometheus等各种服务，也可以在上面跑CI/CD自动化构建发布你的代码  阅读门槛  基本的网络知识，比如光猫和路由器的区别，交换机是干什么的 基本的Linux操作，可以理解计算机不是一定要连接显示器才可以操作 遇到问题先使用英文进行Google，内容过长可以开启页面翻译，请不要看CSDN的内容 不求甚解，当你发现你让它跑起来了的时候，会获得极大的心理满足感  设备 架构说明 主要分为服务器和网络设备。考虑到网络设备的稳定性及网络隔离对整套系统的重要程度，没有采用虚拟化AIO(ALL IN ONE)方案。
+作为服务端开发者看来所谓的AIO毫无稳定性可言，ESXi的OpenWrt虚拟机出了故障会影响其他业务虚拟机的运行，甚至连iLO后台都进不去，需要连接显示器手动配置ESXi进行修复，这种情况在异地操作HomeLab节点的时候是毁灭性的灾难。
+当然这种方式的好处也有：网上教程多，按视频操作一步步做几乎没有难点，小白也能轻松搭建。
+缺点就是对整体的HomeLab环境一知半解甚至根本不懂，只会复制粘贴。当然你可以说“我只是想快速搭建一整套服务，不想了解细节”，这样的话本文可能不适合你。
+服务器 首先是最重要的服务器部分，绝大多数设备购入时间为2021年2-3月，价格相比当前可能有很大差距，先看看费用清单：
+   设备 价格(元) 数量 备注     HPE Gen10 Plus G5420/8GB 4000 1 淘宝/德国转运   iLO5 NIC Kit 399 1 同上   Intel 志强 E-2146G 1400 1 淘宝/QS版   海力士 32GB DDR4 2666MHz ECC 2600 2 淘宝   希捷 Exos X18 16TB 4200 2 淘宝/国行   英睿达 MX500 SATA SSD 2TB 2400 2 京东自营   三星 PM991 256GB + 佳翼硬盘盒 300 1 PM991闲鱼/硬盘盒京东   三星 850PRO SATA SSD 256G 0 2 家用闲置   Intel 傲腾 NVMe SSD 16GB 0 2 家用闲置   Intel 奔腾 G5420 -488 1 闲鱼出了   HPE 原装海力士 8GB ECC -300 1 闲鱼出了   盈通 GTX1650 4GB DDR6 85 1 1535购入/1450出了   佳翼 NVMe 4X4 阵列卡 1200 1 淘宝   总计 15796      之前没怎么认真统计花费，看到总计后还是惊了一下，老实说这个价格可以上塔式服务器或者洋垃圾DIY。选择Gen10 Plus的理由无外乎精致/美观/静音，毕竟这是一台可以放在卧室的服务器。</description>
     </item>
     
   </channel>
