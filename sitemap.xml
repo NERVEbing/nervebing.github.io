@@ -2,6 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://blog.lvlv.fun/tags/gen10-plus/</loc>
+    <lastmod>2022-05-08T11:09:36+08:00</lastmod>
+  </url><url>
     <loc>https://blog.lvlv.fun/tags/homelab/</loc>
     <lastmod>2022-05-08T11:09:36+08:00</lastmod>
   </url><url>
@@ -15,9 +18,6 @@
     <lastmod>2022-05-08T11:09:36+08:00</lastmod>
   </url><url>
     <loc>https://blog.lvlv.fun/posts/2022-05-08/</loc>
-    <lastmod>2022-05-08T11:09:36+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.lvlv.fun/tags/%E8%AE%BE%E5%A4%87/</loc>
     <lastmod>2022-05-08T11:09:36+08:00</lastmod>
   </url><url>
     <loc>https://blog.lvlv.fun/tags/innodb/</loc>
