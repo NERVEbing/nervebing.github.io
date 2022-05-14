@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>HomeLab on Lv&#39;s Playground</title>
-    <link>https://blog.lvlv.fun/tags/homelab/</link>
+    <link>https://lvlv.fun/tags/homelab/</link>
     <description>Recent content in HomeLab on Lv&#39;s Playground</description>
     <image>
-      <url>https://blog.lvlv.fun/apple-touch-icon.png</url>
-      <link>https://blog.lvlv.fun/apple-touch-icon.png</link>
+      <url>https://lvlv.fun/apple-touch-icon.png</url>
+      <link>https://lvlv.fun/apple-touch-icon.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 08 May 2022 11:09:36 +0800</lastBuildDate><atom:link href="https://blog.lvlv.fun/tags/homelab/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 08 May 2022 11:09:36 +0800</lastBuildDate><atom:link href="https://lvlv.fun/tags/homelab/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>基于HPE MicroServer Gen10 Plus的HomeLab搭建 - 硬件篇</title>
-      <link>https://blog.lvlv.fun/posts/2022-05-08/</link>
+      <link>https://lvlv.fun/posts/2022-05-08/</link>
       <pubDate>Sun, 08 May 2022 11:09:36 +0800</pubDate>
       
-      <guid>https://blog.lvlv.fun/posts/2022-05-08/</guid>
+      <guid>https://lvlv.fun/posts/2022-05-08/</guid>
       <description>前言 声明 本文是个人对HomeLab即家庭私有实验室的学习探索，参杂着一些经验总结，记录下来，也希望可以让他人少走一些弯路。
 HomeLab是什么？ 本质上是一个连接各种设备的复杂系统，你可以用任何树莓派/PC/服务器/路由器组成一个HomeLab。
 HomeLab能做什么？  搭建属于私人的网盘，不必在各个设备上安装云盘app才能上传/下载文件 不受版权控制的家庭多媒体，集成影视订阅，实现观影追剧自由 集成HomeBridge以实现在iOS/macOS的Home.app中操作非HomeKit认证的设备 BT下载器，无需开启个人电脑，后台下载资源 RSS订阅器，抛弃无意义地刷手机，只获取自己想要的内容 bilibili每日任务/JD京豆获取，各种脚本反薅资本家的羊毛 最重要的是你可以搭建包括但不限于K8S/ELK/MySQL/Redis/Prometheus等各种服务，也可以在上面跑CI/CD自动化构建发布你的代码  阅读门槛  基本的网络知识，比如光猫和路由器的区别，交换机是干什么的 基本的Linux操作，可以理解计算机不是一定要连接显示器才可以操作 遇到问题先使用英文进行Google，内容过长可以开启页面翻译，请不要看CSDN的内容 不求甚解，当你发现你让它跑起来了的时候，会获得极大的心理满足感  设备 架构说明 主要分为服务器和网络设备。考虑到网络设备的稳定性及网络隔离对整套系统的重要程度，没有采用虚拟化AIO(ALL IN ONE)方案。
