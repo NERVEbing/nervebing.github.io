@@ -12,7 +12,7 @@
     <language>en</language>
     <lastBuildDate>Fri, 28 Dec 2018 13:34:06 +0800</lastBuildDate><atom:link href="https://lvlv.fun/tags/go/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>learning-go-from-zero-to-hero-part2</title>
+      <title>Learning go from zero to hero - Part 2</title>
       <link>https://lvlv.fun/posts/2018-12-28/</link>
       <pubDate>Fri, 28 Dec 2018 13:34:06 +0800</pubDate>
       
@@ -28,7 +28,7 @@ func add(a int, b int) (int, string) {  c := a + b  return c, &amp;#34;successfu
     </item>
     
     <item>
-      <title>learning-go-from-zero-to-hero-part1</title>
+      <title>Learning go from zero to hero - Part 1</title>
       <link>https://lvlv.fun/posts/2018-12-22/</link>
       <pubDate>Sat, 22 Dec 2018 18:47:53 +0800</pubDate>
       
