@@ -46,9 +46,9 @@ HomeLab能做什么？  搭建属于私人的网盘，不必在各个设备上�
 问题 经过dev环境测试，当php-fpm启动后第一次调用或者距离上次调用时间20分钟后左右，再次请求gRPC微服务接口，就会返回 Connection reset by peer 错误，说明gRPC服务端或者客户端主动关闭连接了。继续发起请求到服务端，又恢复正常。
 思考 经查阅相关资料，发现问题可能出现在k8s集群的kube-proxy模式上。当前k8s环境(dev)下的kube-proxy为ipvs模式，服务端与客户端之间通信如下：
 把上图client看成是apsopen-inside服务pod，Backend pod(1~3)看成gRPC服务，可以看出它们之间的交互路径：
-1 ---&amp;gt; gRPC server pod1 2gRPC-client ---&amp;gt; ipvs ---&amp;gt; gRPC server pod3 3 ---&amp;gt; gRPC server pod3 我们知道gRPC是基于HTTP/2协议的，gRPC的client和server在交互时会建立多条连接，为了性能，这些连接都是长连接并且是一直保活的。 这段环境中不管是客户端服务还是gRPC服务都被调度到各个相同配置信息的Kubernetes节点上，这些k8s节点的 keep-alive 是一致的，如果出现连接主动关闭的问题，因为从client到server经历了一层ipvs，所以最大的可能就是ipvs出将连接主动断开，而client端还不知情。 搜索 ipvs timeout 关键字找到了下面相关的链接：
+ ---&amp;gt; gRPC server pod1 gRPC-client ---&amp;gt; ipvs ---&amp;gt; gRPC server pod3  ---&amp;gt; gRPC server pod3 我们知道gRPC是基于HTTP/2协议的，gRPC的client和server在交互时会建立多条连接，为了性能，这些连接都是长连接并且是一直保活的。 这段环境中不管是客户端服务还是gRPC服务都被调度到各个相同配置信息的Kubernetes节点上，这些k8s节点的 keep-alive 是一致的，如果出现连接主动关闭的问题，因为从client到server经历了一层ipvs，所以最大的可能就是ipvs出将连接主动断开，而client端还不知情。 搜索 ipvs timeout 关键字找到了下面相关的链接：
  https://github.com/moby/moby/issues/31208 https://success.docker.com/article/ipvs-connection-timeout-issue https://github.com/kubernetes/kubernetes/issues/32457  其中 https://github.com/moby/moby/issues/31208 中是关于docker swarm在overlay网络下长连接的问题，这个和k8s kube-proxy应该是类似的，按照这个链接中的描述查看 我们这套环境关于tcp keepalive的内核参数：
-1#进入igo-util-shorturi容器 2 3sysctl net.ipv4.tcp_keepalive_time net.ipv4.tcp_keepalive_probes net.ipv4.tcp_keepalive_intvl 4net.ipv4.tcp_keepalive_time = 7200 5net.ipv4.tcp_keepalive_probes = 9 6net.ipv4.tcp_keepalive_intvl = 75 上面这段参数的含义: net.ipv4.tcp_keepalive_time 是连接时长，当超过这个时间后，每个 net.ipv4.tcp_keepalive_intvl 的时间间隔会发送keepalive数据包， net.</description>
+#进入igo-util-shorturi容器  sysctl net.ipv4.tcp_keepalive_time net.ipv4.tcp_keepalive_probes net.ipv4.tcp_keepalive_intvl net.ipv4.tcp_keepalive_time = 7200 net.ipv4.tcp_keepalive_probes = 9 net.ipv4.tcp_keepalive_intvl = 75 上面这段参数的含义: net.ipv4.tcp_keepalive_time 是连接时长，当超过这个时间后，每个 net.ipv4.tcp_keepalive_intvl 的时间间隔会发送keepalive数据包， net.</description>
     </item>
     
     <item>
@@ -84,11 +84,11 @@ repeated编码   第一种方式：重复出现的相同tag
       <description>作者：Milap Neupane
 链接：https://medium.freecodecamp.org/learning-go-from-zero-to-hero-d2a3223b3d86
  函数  main.go包中定义的func main()是执行程序的入口。可以定义和使用更多函数。让我们看一个简单的例子：
-1func add(a int, b int) int { 2 c := a + b 3 return c 4} 5func main() { 6 fmt.Println(add(2, 1)) 7} 8// 3  正如我们在上面的例子中所看到的，使用**func关键字后跟函数名来定义Go函数。函数所需的参数**需要根据其数据类型定义，最后是返回的数据类型。
+func add(a int, b int) int {  c := a + b  return c } func main() {  fmt.Println(add(2, 1)) } // 3  正如我们在上面的例子中所看到的，使用**func关键字后跟函数名来定义Go函数。函数所需的参数**需要根据其数据类型定义，最后是返回的数据类型。
  函数的返回也可以在函数中预定义：
-1func add(a int, b int) (c int) { 2 c = a + b 3 return 4} 5func main() { 6 fmt.Println(add(2, 1)) 7} 8// 3  这里c被定义为返回变量。因此，定义的变量c将自动返回，而无需在结尾的return语句中定义。
+func add(a int, b int) (c int) {  c = a + b  return } func main() {  fmt.Println(add(2, 1)) } // 3  这里c被定义为返回变量。因此，定义的变量c将自动返回，而无需在结尾的return语句中定义。
  还可以从单个函数返回多个返回值，将返回值与逗号分隔开。
-1func add(a int, b int) (int, string) { 2 c := a + b 3 return c, &amp;#34;successfully added&amp;#34; 4} 5func main() { 6 sum, message := add(2, 1) 7 fmt.</description>
+func add(a int, b int) (int, string) {  c := a + b  return c, &amp;#34;successfully added&amp;#34; } func main() {  sum, message := add(2, 1)  fmt.</description>
     </item>
     
     <item>
@@ -107,12 +107,12 @@ repeated编码   第一种方式：重复出现的相同tag
  这节省了开发人员的时间，并使大型代码库易于维护。
   “ 功能越多，成本越高 ” — Rob Pike
  入门  Go由package组成。名为main的包告诉Go编译器被编译为可执行文件，而不是作为library被引用。它是应用程序的主入口。主包定义为：
-1package main  让我们在Go工作区中创建一个简单的hello world示例。
+package main  让我们在Go工作区中创建一个简单的hello world示例。
 工作区  Go中的工作空间由环境变量定义，称为 GOPATH。
  你的任何代码都将写在工作区内。Go将搜索GOPATH目录中的任何包，或者GOROOT在安装Go时默认设置的目录。注：GOROOT 是安装go的路径。
  设置GOPATH为所需的目录。现在，让我们将其添加到文件夹中~/workspace。
-1# 定义GOPATH目录 2export GOPATH=~/workspace 3# 进入工作区目录 4cd ~/workspace  在我们刚刚创建的工作区文件夹中创建main.go文件并写入以下代码。
-Hello World! 1package main 2 3import ( 4 &amp;#34;fmt&amp;#34; 5) 6 7func main(){ 8 fmt.</description>
+# 定义GOPATH目录 export GOPATH=~/workspace # 进入工作区目录 cd ~/workspace  在我们刚刚创建的工作区文件夹中创建main.go文件并写入以下代码。
+Hello World! package main  import (  &amp;#34;fmt&amp;#34; )  func main(){  fmt.</description>
     </item>
     
     
