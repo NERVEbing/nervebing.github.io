@@ -114,6 +114,15 @@ Hello World! package main  import (  &amp;#34;fmt&amp;#34; )  func main(){  fmt.
     
     
     <item>
+      <title>Live</title>
+      <link>https://lvlv.fun/live/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://lvlv.fun/live/</guid>
+      <description>live</description>
+    </item>
+    
+    <item>
       <title>Navigation</title>
       <link>https://lvlv.fun/navigation/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
