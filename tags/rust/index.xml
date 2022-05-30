@@ -17,7 +17,7 @@
       <pubDate>Mon, 30 May 2022 02:25:11 +0800</pubDate>
       
       <guid>https://lvlv.fun/posts/2022-05-30/</guid>
-      <description>前言 当前越来越多的公司基于 Google gRPC 通信框架来构建微服务体系，比较流行的是使用 Go/Java/C++ 这样的主流编程语言来编写服务端，我们今天来尝试使用 Rust 语言来实现一个 gRPC 服务端。
+      <description>前言 当前越来越多的公司基于 Google gRPC 通信框架来构建微服务体系，比较流行的是使用 Go/Java/C++ 这样的主流编程语言来编写服务端，我们今天来尝试使用 Rust 语言来实现一个 gRPC 服务端/客户端。
 打开官方文档可以看到目前 Rust 并不在 gRPC 官方支持的语言列表中：
  Supported languages
  C# C++ Dart Go Java Kotlin Node Objective-C PHP Python Ruby   不过不用担心这个问题。我们知道只要某个语言兼容了基于 C/C++ 编写的 gRPC 的核心库，那么该语言就可以完美支持 gRPC。目前 Rust 可以实现 gRPC 的主流 crate 如下：
