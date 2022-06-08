@@ -19,11 +19,12 @@
       <guid>https://lvlv.fun/posts/2022-05-30/</guid>
       <description>前言 当前越来越多的公司基于 Google gRPC 通信框架来构建微服务体系，比较流行的是使用 Go/Java/C++ 这样的主流编程语言来编写服务端，我们今天来尝试使用 Rust 语言来实现一个 gRPC 服务端/客户端。
 打开官方文档可以看到目前 Rust 并不在 gRPC 官方支持的语言列表中：
- Supported languages
- C# C++ Dart Go Java Kotlin Node Objective-C PHP Python Ruby   不过不用担心这个问题。我们知道只要某个语言兼容了基于 C/C++ 编写的 gRPC 的核心库，那么该语言就可以完美支持 gRPC。目前 Rust 可以实现 gRPC 的主流 crate 如下：
- tonic grpc-rs grpc-rust  以上三种任选其一都可以，只是 grpc-rs/grpc-rust 当前还处于开发状态，我们在这里使用 tonic 包。
+Supported languages
+C# C++ Dart Go Java Kotlin Node Objective-C PHP Python Ruby 不过不用担心这个问题。我们知道只要某个语言兼容了基于 C/C++ 编写的 gRPC 的核心库，那么该语言就可以完美支持 gRPC。目前 Rust 可以实现 gRPC 的主流 crate 如下：
+tonic grpc-rs grpc-rust 以上三种任选其一都可以，只是 grpc-rs/grpc-rust 当前还处于开发状态，我们在这里使用 tonic 包。
 构建程序 首先检查你的 Rust 版本：
-$ rustc --version rustc 1.61.0 (fe5b13d68 2022-05-18) tonic 适用于 1.56 及以上，如果低于这个版本，你应该先更新你的 Rust 编译器：</description>
+$ rustc --version rustc 1.61.0 (fe5b13d68 2022-05-18) tonic 适用于 1.56 及以上，如果低于这个版本，你应该先更新你的 Rust 编译器：
+$ rustup update stable 确保你已经提前安装了 protobuf：</description>
     </item>
     
     <item>
@@ -36,9 +37,10 @@ $ rustc --version rustc 1.61.0 (fe5b13d68 2022-05-18) tonic 适用于 1.56 及�
 问题 经过dev环境测试，当php-fpm启动后第一次调用或者距离上次调用时间20分钟后左右，再次请求gRPC微服务接口，就会返回 Connection reset by peer 错误，说明gRPC服务端或者客户端主动关闭连接了。继续发起请求到服务端，又恢复正常。
 思考 经查阅相关资料，发现问题可能出现在k8s集群的kube-proxy模式上。当前k8s环境(dev)下的kube-proxy为ipvs模式，服务端与客户端之间通信如下：
 把上图client看成是apsopen-inside服务pod，Backend pod(1~3)看成gRPC服务，可以看出它们之间的交互路径：
- ---&amp;gt; gRPC server pod1 gRPC-client ---&amp;gt; ipvs ---&amp;gt; gRPC server pod3  ---&amp;gt; gRPC server pod3 我们知道gRPC是基于HTTP/2协议的，gRPC的client和server在交互时会建立多条连接，为了性能，这些连接都是长连接并且是一直保活的。 这段环境中不管是客户端服务还是gRPC服务都被调度到各个相同配置信息的Kubernetes节点上，这些k8s节点的 keep-alive 是一致的，如果出现连接主动关闭的问题，因为从client到server经历了一层ipvs，所以最大的可能就是ipvs出将连接主动断开，而client端还不知情。 搜索 ipvs timeout 关键字找到了下面相关的链接：
- https://github.com/moby/moby/issues/31208 https://success.docker.com/article/ipvs-connection-timeout-issue https://github.com/kubernetes/kubernetes/issues/32457  其中 https://github.com/moby/moby/issues/31208 中是关于docker swarm在overlay网络下长连接的问题，这个和k8s kube-proxy应该是类似的，按照这个链接中的描述查看 我们这套环境关于tcp keepalive的内核参数：
-#进入igo-util-shorturi容器  sysctl net.ipv4.tcp_keepalive_time net.ipv4.tcp_keepalive_probes net.ipv4.tcp_keepalive_intvl net.ipv4.tcp_keepalive_time = 7200 net.ipv4.tcp_keepalive_probes = 9 net.ipv4.tcp_keepalive_intvl = 75 上面这段参数的含义: net.ipv4.tcp_keepalive_time 是连接时长，当超过这个时间后，每个 net.ipv4.tcp_keepalive_intvl 的时间间隔会发送keepalive数据包， net.</description>
+---&amp;gt; gRPC server pod1 gRPC-client ---&amp;gt; ipvs ---&amp;gt; gRPC server pod3 ---&amp;gt; gRPC server pod3 我们知道gRPC是基于HTTP/2协议的，gRPC的client和server在交互时会建立多条连接，为了性能，这些连接都是长连接并且是一直保活的。 这段环境中不管是客户端服务还是gRPC服务都被调度到各个相同配置信息的Kubernetes节点上，这些k8s节点的 keep-alive 是一致的，如果出现连接主动关闭的问题，因为从client到server经历了一层ipvs，所以最大的可能就是ipvs出将连接主动断开，而client端还不知情。 搜索 ipvs timeout 关键字找到了下面相关的链接：
+https://github.com/moby/moby/issues/31208 https://success.docker.com/article/ipvs-connection-timeout-issue https://github.com/kubernetes/kubernetes/issues/32457 其中 https://github.com/moby/moby/issues/31208 中是关于docker swarm在overlay网络下长连接的问题，这个和k8s kube-proxy应该是类似的，按照这个链接中的描述查看 我们这套环境关于tcp keepalive的内核参数：
+#进入igo-util-shorturi容器 sysctl net.ipv4.tcp_keepalive_time net.ipv4.tcp_keepalive_probes net.ipv4.tcp_keepalive_intvl net.ipv4.tcp_keepalive_time = 7200 net.ipv4.tcp_keepalive_probes = 9 net.ipv4.tcp_keepalive_intvl = 75 上面这段参数的含义: net.ipv4.tcp_keepalive_time 是连接时长，当超过这个时间后，每个 net.ipv4.tcp_keepalive_intvl 的时间间隔会发送keepalive数据包， net.ipv4.tcp_keepalive_probe 是发送keepalived数据包的频率。
+解决 使用 ipvsadm 命令查看k8s节点上ipvs的超时时间：</description>
     </item>
     
     <item>
@@ -47,7 +49,7 @@ $ rustc --version rustc 1.61.0 (fe5b13d68 2022-05-18) tonic 适用于 1.56 及�
       <pubDate>Wed, 12 Jun 2019 20:04:20 +0800</pubDate>
       
       <guid>https://lvlv.fun/posts/2019-06-12/</guid>
-      <description>RPC.response.status.code HTTP RPC Description     0 - OK 200 OK Not an error; returned on success.   1 - CANCELLED 499 Client Closed Request The operation was cancelled, typically by the caller.   2 - UNKNOWN 500 Internal Server Error Unknown error. For example, this error may be returned when a Status value received from another address space belongs to an error space that is not known in this address space.</description>
+      <description>RPC.response.status.code HTTP RPC Description 0 - OK 200 OK Not an error; returned on success. 1 - CANCELLED 499 Client Closed Request The operation was cancelled, typically by the caller. 2 - UNKNOWN 500 Internal Server Error Unknown error. For example, this error may be returned when a Status value received from another address space belongs to an error space that is not known in this address space. Also errors raised by APIs that do not return enough error information may be converted to this error.</description>
     </item>
     
   </channel>
