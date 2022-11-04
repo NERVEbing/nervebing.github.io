@@ -9,7 +9,7 @@
       <link>https://lvlv.fun/apple-touch-icon.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>en-us</language>
     <lastBuildDate>Mon, 30 May 2022 02:25:11 +0800</lastBuildDate><atom:link href="https://lvlv.fun/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>使用 Rust 构建 gRPC 微服务</title>

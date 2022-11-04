@@ -9,7 +9,7 @@
       <link>https://lvlv.fun/apple-touch-icon.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>en-us</language>
     <lastBuildDate>Mon, 30 May 2022 02:25:11 +0800</lastBuildDate><atom:link href="https://lvlv.fun/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>使用 Rust 构建 gRPC 微服务</title>
@@ -180,6 +180,15 @@ go build main.go 这将创建一个二进制可执行文件main，现在我们�
       <description>navigation</description>
     </item>
     
+    
+    <item>
+      <title>Status</title>
+      <link>https://lvlv.fun/status/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://lvlv.fun/status/</guid>
+      <description>status</description>
+    </item>
     
   </channel>
 </rss>
