@@ -172,6 +172,15 @@ go build main.go 这将创建一个二进制可执行文件main，现在我们�
     </item>
     
     <item>
+      <title>Monitor</title>
+      <link>https://lvlv.fun/monitor/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://lvlv.fun/monitor/</guid>
+      <description>monitor</description>
+    </item>
+    
+    <item>
       <title>Navigation</title>
       <link>https://lvlv.fun/navigation/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -180,15 +189,6 @@ go build main.go 这将创建一个二进制可执行文件main，现在我们�
       <description>navigation</description>
     </item>
     
-    
-    <item>
-      <title>Status</title>
-      <link>https://lvlv.fun/status/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://lvlv.fun/status/</guid>
-      <description>status</description>
-    </item>
     
   </channel>
 </rss>
