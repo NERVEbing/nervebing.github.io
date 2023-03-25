@@ -25,7 +25,7 @@ Step 2 打开 Chrome 浏览器，按 F12 或手动右键页面，点击检查，
 Step 3 鼠标移到右上头像，记下当前动态数。
 复制以下代码到 Console 并回车执行，等待 1s，页面应该会自动刷新。
 再次查看右上头像当前动态数，如发现动态数量减少，按方向键上重新调出代码并回车执行，之后复读操作即可。
-const delBtnElement = &amp;#39;#page-dynamic &amp;gt; div.col-1 &amp;gt; div &amp;gt; div.bili-dyn-list__items &amp;gt; div &amp;gt; div &amp;gt; div &amp;gt; div.bili-dyn-item__header &amp;gt; div.bili-dyn-item__more &amp;gt; div &amp;gt; div &amp;gt; div.bili-dyn-more__menu &amp;gt; div:nth-child(2)&amp;#39; const confirmBtnEliment = &amp;#39;body &amp;gt; div.bili-modal__wrap &amp;gt; div.bili-modal &amp;gt; div.bili-modal__footer &amp;gt; button.bili-modal__button.confirm&amp;#39; var elements = $(delBtnElement); if (elements.</description>
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 const delBtnElement = &amp;#39;#page-dynamic &amp;gt; div.col-1 &amp;gt; div &amp;gt; div.bili-dyn-list__items &amp;gt; div &amp;gt; div &amp;gt; div &amp;gt; div.bili-dyn-item__header &amp;gt; div.bili-dyn-item__more &amp;gt; div &amp;gt; div &amp;gt; div.</description>
     </item>
     
   </channel>

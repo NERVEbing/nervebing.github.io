@@ -25,7 +25,7 @@ repeated编码 第一种方式：重复出现的相同tag
 非repeated情况出现重复tag，后面的覆盖前面的，因此optional和repeated相互兼容
 Map编码 map&amp;lt;key_type,value_type&amp;gt;map_field=N
 序列化结果完全等价于：
-message MapFieldEntry { key_type key = 1; value_type value = 2; } repeated MapFieldEntry map_field = N; protoc编译器 C++编写的proto文件编译器 支持各种语言编写的插件，使用进程间通信传递信息 Android和iOS上有对应的插件支持，自动调用protoc Github地址：https://github.</description>
+1 2 3 4 5 message MapFieldEntry { key_type key = 1; value_type value = 2; } repeated MapFieldEntry map_field = N; protoc编译器 C++编写的proto文件编译器 支持各种语言编写的插件，使用进程间通信传递信息 Android和iOS上有对应的插件支持，自动调用protoc Github地址：https://github.</description>
     </item>
     
   </channel>
