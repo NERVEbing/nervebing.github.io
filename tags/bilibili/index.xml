@@ -10,6 +10,7 @@
       <link>https://lvlv.fun/apple-touch-icon.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
     <lastBuildDate>Sat, 21 May 2022 00:36:37 +0800</lastBuildDate><atom:link href="https://lvlv.fun/tags/bilibili/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>JavaScript 批量删除 Bilibili 动态</title>
