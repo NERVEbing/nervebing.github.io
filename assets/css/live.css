@@ -1,0 +1,18 @@
+#live-container {
+    display: block;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#live-video-element {
+    display: none;
+    height: 100%;
+    width: 100%;
+    border-radius: 0.5em;
+}
+
+#live-background-img {
+    display: block;
+    border-radius: 0.5em;
+}
