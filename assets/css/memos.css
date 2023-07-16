@@ -1,0 +1,108 @@
+#memos-container {
+    background: var(--special-color-light);
+    border-radius: 0.5em;
+    padding: 1em 1em;
+}
+
+.dark #memos-container {
+    background: #111;
+}
+
+#memos-header {
+    background: #F8F7F2;
+    margin: 1em 0;
+    padding: 1em;
+    border-radius: 0.5em;
+    border-left: 0.5em solid var(--special-color);
+}
+
+.dark #memos-header {
+    background: #1E2224;
+}
+
+#memos-body {
+}
+
+.dark #memos-body {
+}
+
+#memos-load-button {
+    background: #F8F7F2;
+    margin: 1em 0;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    text-align: center;
+}
+
+.dark #memos-load-button {
+    background: #1E2224;
+}
+
+.memos-row {
+    background: #F8F7F2;
+    margin: 1em 0;
+    padding: 1em 1em 1em 1em;
+    border-radius: 0.5em;
+    font-size: 0.875em;
+}
+
+.dark .memos-row {
+    background: #1E2224;
+}
+
+.memos-row-header {
+    margin-bottom: 1em;
+}
+
+.memos-row-name {
+    font-size: 1em;
+}
+
+.memos-row-created {
+    font-size: 10px;
+    margin-left: 1em;
+}
+
+.memos-row-resource {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.memos-row-resource > a {
+    height: 100px;
+    width: 100px;
+    /*flex-grow: 1;*/
+    margin: 1em;
+}
+
+.memos-row-resource-image {
+    height: 100px;
+    width: 100px;
+    min-width: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    vertical-align: bottom;
+    display: block;
+    border-radius: 0.75em;
+}
+
+.memos-row-related {
+    margin-top: 1em;
+    color: #536471;
+    font-size: 0.875em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.memos-row-related > a {
+    color: #536471;
+}
+
+.memos-row-related:hover {
+    text-decoration: underline dotted #7f7f7f;
+}
+
+.memos-row-comment {
+    margin-top: 1em;
+}
