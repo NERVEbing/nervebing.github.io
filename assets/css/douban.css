@@ -1,0 +1,49 @@
+#douban-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.douban-item {
+    text-align: center;
+    margin: 1em 1em;
+}
+
+.douban-item img {
+    width: 150px;
+    height: 220px;
+    border-radius: 0.75em 0.75em 0 0;
+}
+
+.douban-item img:hover {
+    transform: scale(1.02);
+    transition: all 1s;
+}
+
+.douban-item .title {
+    margin-top: 0.2em;
+    font-size: 0.8em;
+}
+
+.douban-item .desc {
+    margin-top: 0.2em;
+    font-size: 0.6em;
+}
+
+.douban-item .type {
+    background: #f99b01;
+    font-size: 0.6em;
+    font-style: italic;
+    border-radius: 0 0 0.75em 0.75em;
+    text-transform: capitalize;
+}
+
+@media (max-width: 800px) {
+    #douban-container {
+        flex-wrap: wrap;
+    }
+
+    .douban-item {
+        width: 40%;
+    }
+}
