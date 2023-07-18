@@ -1,5 +1,6 @@
 #memos-container {
     border-radius: 0.5em;
+    margin: 2rem 0;
 }
 
 #memos-header {
@@ -11,6 +12,20 @@
 
 .dark #memos-header {
     background: #1E2224;
+}
+
+.post-entry {
+    position: relative;
+    margin-bottom: var(--gap);
+    padding: var(--gap);
+    background: var(--entry);
+    border-radius: var(--radius);
+    transition: transform 0.1s;
+    border: 1px solid var(--border);
+}
+
+.post-entry:active {
+    transform: scale(0.96);
 }
 
 #memos-body {
@@ -34,6 +49,11 @@
     padding: 1rem;
     border-radius: 0.5rem;
     font-size: 0.875rem;
+    transition: all 0.2s ease;
+}
+
+.memos-row:hover {
+    transform: scale(1.05);
 }
 
 .dark .memos-row {
@@ -51,6 +71,14 @@
 .memos-row-created {
     font-size: 10px;
     margin-left: 1rem;
+}
+
+.memos-tag {
+    display: inline-block;
+    background-color: rgba(37, 99, 235, .15);
+    padding: 0 0.2rem;
+    border-radius: 3px;
+    line-height: 1.5;
 }
 
 .memos-row-resource {
