@@ -1,19 +1,12 @@
 #memos-container {
-    background: var(--special-color-light);
     border-radius: 0.5em;
-    padding: 1em 1em;
-}
-
-.dark #memos-container {
-    background: #111;
 }
 
 #memos-header {
-    background: #F8F7F2;
-    margin: 1em 0;
-    padding: 1em;
-    border-radius: 0.5em;
-    border-left: 0.5em solid var(--special-color);
+    background: var(--special-color-light);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border-left: 0.5rem solid var(--special-color);
 }
 
 .dark #memos-header {
@@ -21,16 +14,13 @@
 }
 
 #memos-body {
-}
-
-.dark #memos-body {
+    margin: 1rem 0;
 }
 
 #memos-load-button {
-    background: #F8F7F2;
-    margin: 1em 0;
-    padding: 0.5em;
-    border-radius: 0.5em;
+    background: var(--special-color-light);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
     text-align: center;
 }
 
@@ -39,11 +29,11 @@
 }
 
 .memos-row {
-    background: #F8F7F2;
-    margin: 1em 0;
-    padding: 1em 1em 1em 1em;
-    border-radius: 0.5em;
-    font-size: 0.875em;
+    background: var(--special-color-light);
+    margin: 1rem 0;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
 }
 
 .dark .memos-row {
@@ -51,45 +41,43 @@
 }
 
 .memos-row-header {
-    margin-bottom: 1em;
+    margin-bottom: 1rem;
 }
 
 .memos-row-name {
-    font-size: 1em;
+    font-size: 1rem;
 }
 
 .memos-row-created {
     font-size: 10px;
-    margin-left: 1em;
+    margin-left: 1rem;
 }
 
 .memos-row-resource {
     display: flex;
-    flex-wrap: wrap;
-}
-
-.memos-row-resource > a {
-    height: 100px;
-    width: 100px;
-    /*flex-grow: 1;*/
-    margin: 1em;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 1rem;
 }
 
 .memos-row-resource-image {
     height: 100px;
-    width: 100px;
-    min-width: 100%;
-    max-width: 100%;
+    /*width: 100px;*/
     object-fit: cover;
     vertical-align: bottom;
     display: block;
-    border-radius: 0.75em;
+    border-radius: 0.5rem;
+    transition: all 0.6s ease;
+}
+
+.memos-row-resource-image:hover {
+    transform: scale(1.1);
 }
 
 .memos-row-related {
-    margin-top: 1em;
+    margin-top: 1rem;
     color: #536471;
-    font-size: 0.875em;
+    font-size: 0.875rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -104,5 +92,16 @@
 }
 
 .memos-row-comment {
-    margin-top: 1em;
+    margin-top: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+    .memos-row-resource {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .memos-row-resource-image {
+        width: 100px;
+    }
 }
