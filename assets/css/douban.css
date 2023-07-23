@@ -27,11 +27,26 @@
 }
 
 .douban-item .category {
-    background: #f99b01;
+    background: var(--special-color-light);
     font-size: 0.6rem;
     font-style: italic;
     border-radius: 0 0 0.5rem 0.5rem;
-    /*text-transform: capitalize;*/
+}
+
+.douban-item .pub-date {
+    display: none;
+    background: var(--special-color-light);
+    font-size: 0.6rem;
+    font-style: italic;
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.douban-item:hover .category {
+    display: none;
+}
+
+.douban-item:hover .pub-date {
+    display: block;
 }
 
 .douban-item .title {
@@ -49,7 +64,7 @@
 }
 
 .douban-item .star {
-    width: 0.8rem;
+    width: 0.6rem;
 }
 
 .douban-item .light {
