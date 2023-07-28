@@ -52,10 +52,6 @@
     transition: all 0.2s ease;
 }
 
-.memos-row:hover {
-    transform: scale(1.05);
-}
-
 .dark .memos-row {
     background: #1E2224;
 }
@@ -121,6 +117,25 @@
 
 .memos-row-comment {
     margin-top: 1rem;
+}
+
+.bilibili-video {
+    margin: 1rem 0 1rem 0;
+    border-radius: 0.25rem;
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+    overflow: hidden;
+}
+
+.bilibili-video iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border: 0;
 }
 
 @media screen and (max-width: 768px) {
