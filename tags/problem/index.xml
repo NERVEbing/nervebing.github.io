@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Problem on Lv&#39;s Playground</title>
     <link>https://lvlv.fun/tags/problem/</link>
@@ -11,12 +11,12 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 22 Jul 2019 12:40:20 +0800</lastBuildDate><atom:link href="https://lvlv.fun/tags/problem/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 22 Jul 2019 12:40:20 +0800</lastBuildDate>
+    <atom:link href="https://lvlv.fun/tags/problem/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>gRPC Connection reset by peer 问题</title>
       <link>https://lvlv.fun/posts/2019-07-22/</link>
       <pubDate>Mon, 22 Jul 2019 12:40:20 +0800</pubDate>
-      
       <guid>https://lvlv.fun/posts/2019-07-22/</guid>
       <description>前提 因产品需求，需用PHP（v7.0.12）调用k8s集群中gRPC（golang@1.12.0）服务。
 问题 经过dev环境测试，当php-fpm启动后第一次调用或者距离上次调用时间20分钟后左右，再次请求gRPC微服务接口，就会返回 Connection reset by peer 错误，说明gRPC服务端或者客户端主动关闭连接了。继续发起请求到服务端，又恢复正常。
@@ -27,6 +27,5 @@ https://github.com/moby/moby/issues/31208 https://success.docker.com/article/ipv
 #进入igo-util-shorturi容器 sysctl net.ipv4.tcp_keepalive_time net.ipv4.tcp_keepalive_probes net.ipv4.tcp_keepalive_intvl net.ipv4.tcp_keepalive_time = 7200 net.ipv4.tcp_keepalive_probes = 9 net.ipv4.tcp_keepalive_intvl = 75 上面这段参数的含义: net.ipv4.tcp_keepalive_time 是连接时长，当超过这个时间后，每个 net.ipv4.tcp_keepalive_intvl 的时间间隔会发送keepalive数据包， net.ipv4.tcp_keepalive_probe 是发送keepalived数据包的频率。
 解决 使用 ipvsadm 命令查看k8s节点上ipvs的超时时间：</description>
     </item>
-    
   </channel>
 </rss>

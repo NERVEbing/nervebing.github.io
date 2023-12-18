@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Lv&#39;s Playground</title>
     <link>https://lvlv.fun/</link>
@@ -11,12 +11,12 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 30 May 2022 02:25:11 +0800</lastBuildDate><atom:link href="https://lvlv.fun/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 30 May 2022 02:25:11 +0800</lastBuildDate>
+    <atom:link href="https://lvlv.fun/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>使用 Rust 构建 gRPC 微服务</title>
       <link>https://lvlv.fun/posts/2022-05-30/</link>
       <pubDate>Mon, 30 May 2022 02:25:11 +0800</pubDate>
-      
       <guid>https://lvlv.fun/posts/2022-05-30/</guid>
       <description>前言 当前越来越多的公司基于 Google gRPC 通信框架来构建微服务体系，比较流行的是使用 Go/Java/C++ 这样的主流编程语言来编写服务端，我们今天来尝试使用 Rust 语言来实现一个 gRPC 服务端/客户端。
 打开官方文档可以看到目前 Rust 并不在 gRPC 官方支持的语言列表中：
@@ -27,12 +27,10 @@ tonic grpc-rs grpc-rust 以上三种任选其一都可以，只是 grpc-rs/grpc-
 $ rustc --version rustc 1.61.0 (fe5b13d68 2022-05-18) tonic 适用于 1.56 及以上，如果低于这个版本，你应该先更新你的 Rust 编译器：
 $ rustup update stable 确保你已经提前安装了 protobuf：</description>
     </item>
-    
     <item>
       <title>JavaScript 批量删除 Bilibili 动态</title>
       <link>https://lvlv.fun/posts/2022-05-21/</link>
       <pubDate>Sat, 21 May 2022 00:36:37 +0800</pubDate>
-      
       <guid>https://lvlv.fun/posts/2022-05-21/</guid>
       <description>Step 1 登录 Bilibili，点击自己的头像进入个人空间页，点击动态标签。
 此时的 URL 应该是 https://space.bilibili.com/{YOUR_UID}/dynamic。
@@ -43,12 +41,10 @@ Step 3 鼠标移到右上头像，记下当前动态数。
 再次查看右上头像当前动态数，如发现动态数量减少，按方向键上重新调出代码并回车执行，之后复读操作即可。
 const delBtnElement = &amp;#39;#page-dynamic &amp;gt; div.col-1 &amp;gt; div &amp;gt; div.bili-dyn-list__items &amp;gt; div &amp;gt; div &amp;gt; div &amp;gt; div.bili-dyn-item__header &amp;gt; div.bili-dyn-item__more &amp;gt; div &amp;gt; div &amp;gt; div.bili-dyn-more__menu &amp;gt; div:nth-child(2)&amp;#39; const confirmBtnEliment = &amp;#39;body &amp;gt; div.bili-modal__wrap &amp;gt; div.bili-modal &amp;gt; div.bili-modal__footer &amp;gt; button.bili-modal__button.confirm&amp;#39; var elements = $(delBtnElement); if (elements.</description>
     </item>
-    
     <item>
       <title>基于 HPE MicroServer Gen10 Plus 的 HomeLab 搭建 - 硬件篇</title>
       <link>https://lvlv.fun/posts/2022-05-08/</link>
       <pubDate>Sun, 08 May 2022 11:09:36 +0800</pubDate>
-      
       <guid>https://lvlv.fun/posts/2022-05-08/</guid>
       <description>前言 声明 本文是个人对 HomeLab 即家庭私有实验室的学习探索，参杂着一些经验总结，记录下来，也希望可以让他人少走一些弯路。
 HomeLab 是什么？ 本质上是一个连接各种设备的复杂系统，你可以用任何树莓派/PC/服务器/路由器组成一个 HomeLab。
@@ -58,21 +54,17 @@ HomeLab 能做什么？ 搭建属于私人的网盘，不必在各个设备上�
 缺点就是对整体的 HomeLab 环境一知半解甚至根本不懂，只会复制粘贴。当然你可以说“我只是想快速搭建一整套服务，不想了解细节”，这样的话本文可能不适合你。
 服务器 首先是最重要的服务器部分，绝大多数设备购入时间为 2021年2-3月，价格相比当前可能有很大差距，费用清单如下：</description>
     </item>
-    
     <item>
       <title>MySQL/innoDB 内部实现</title>
       <link>https://lvlv.fun/posts/2019-10-29/</link>
       <pubDate>Tue, 29 Oct 2019 19:12:30 +0800</pubDate>
-      
       <guid>https://lvlv.fun/posts/2019-10-29/</guid>
       <description>MySQL存储结构 B-tree 是平衡的多路查找树。 涉及到磁盘的查找需要设法减少磁盘 I/O 次数。 B-tree 就是为解决这个问题而引入的数据结构。 区别于二叉树 b-tree 可以拥有很多个子节点（这个度量被称为「内结点出度」) 我们可以在技术上使 B-tree 的结点大小为磁盘一个页的大小，并且在新建结点时直接申请一个页大小的空间，使得结点的物理存储位置也是在一个页里，这样就能实现存取一个结点只需一次磁盘 I/O 在最坏情况下，B-tree 的一次检索最多需要H（树的高度）次的磁盘 I/O 实际上，为了取得更大的内结点出度，各个数据库一般会采用 B-tree的变种如 B+-tree，B*-tree 来实现索引，比如 MySQL 的存储引擎 InnoDB 就采用 B+-tree 来实现聚簇索引 索引 字符串索引，长度限制 innodb 存储引擎，默认前缀长度最大能支持767字节；而在开启innodb_large_prefix属性值的情况下，最大能支持3072字节 前缀索引，后缀索引，手动md5哈希索引 innode内置哈希 Cardinality 不重复值预估 ，除以记录总数的比例 尽量接近1 索引的价值越大 查询优化器 选择索引时会考虑这个值 oltp olap Online Analytical Processing Online transaction processing 索引细节 单列索引币复合索引在每个数据页存的记录要多，所以查询优化器优先使用单列索引 覆盖索引 数据最小读取单位(索引页？) count(*) 操作，实际会读取辅助索引，避免读取聚合索引 统计操作，覆盖索引的情况下，可以直接查询复合索引(a,b) 中的b index hint 索引提示 use index 只是提示，force index才是强制 multi-range read 优化 从辅助索引筛选完之后，将结果，已主键进行排序，再去读聚合索引下的记录行 index condition pushdown （IPC）优化，将where 过滤条件推送到存储引擎，减少数据传输 (使用时会提示 using index condition) innodb 全文索引 使用倒排索引实现 ，使用了FTS Index Cache 缓存数据变更，批量更新到Auxiliary Table中(这个表可以通过关键词定位到文档，单词位置) 锁 myisam 只支持表锁，sql server 2005版之前只支持页锁，2005开始支持行锁，但是实现方式与innodb不同，加锁会有资源开销，innodb则与oracle 的锁实现类似</description>
     </item>
-    
     <item>
       <title>gRPC Connection reset by peer 问题</title>
       <link>https://lvlv.fun/posts/2019-07-22/</link>
       <pubDate>Mon, 22 Jul 2019 12:40:20 +0800</pubDate>
-      
       <guid>https://lvlv.fun/posts/2019-07-22/</guid>
       <description>前提 因产品需求，需用PHP（v7.0.12）调用k8s集群中gRPC（golang@1.12.0）服务。
 问题 经过dev环境测试，当php-fpm启动后第一次调用或者距离上次调用时间20分钟后左右，再次请求gRPC微服务接口，就会返回 Connection reset by peer 错误，说明gRPC服务端或者客户端主动关闭连接了。继续发起请求到服务端，又恢复正常。
@@ -83,21 +75,17 @@ https://github.com/moby/moby/issues/31208 https://success.docker.com/article/ipv
 #进入igo-util-shorturi容器 sysctl net.ipv4.tcp_keepalive_time net.ipv4.tcp_keepalive_probes net.ipv4.tcp_keepalive_intvl net.ipv4.tcp_keepalive_time = 7200 net.ipv4.tcp_keepalive_probes = 9 net.ipv4.tcp_keepalive_intvl = 75 上面这段参数的含义: net.ipv4.tcp_keepalive_time 是连接时长，当超过这个时间后，每个 net.ipv4.tcp_keepalive_intvl 的时间间隔会发送keepalive数据包， net.ipv4.tcp_keepalive_probe 是发送keepalived数据包的频率。
 解决 使用 ipvsadm 命令查看k8s节点上ipvs的超时时间：</description>
     </item>
-    
     <item>
       <title>gRPC error code</title>
       <link>https://lvlv.fun/posts/2019-06-12/</link>
       <pubDate>Wed, 12 Jun 2019 20:04:20 +0800</pubDate>
-      
       <guid>https://lvlv.fun/posts/2019-06-12/</guid>
       <description>RPC.response.status.code HTTP RPC Description 0 - OK 200 OK Not an error; returned on success. 1 - CANCELLED 499 Client Closed Request The operation was cancelled, typically by the caller. 2 - UNKNOWN 500 Internal Server Error Unknown error. For example, this error may be returned when a Status value received from another address space belongs to an error space that is not known in this address space. Also errors raised by APIs that do not return enough error information may be converted to this error.</description>
     </item>
-    
     <item>
       <title>Protobuf 总结</title>
       <link>https://lvlv.fun/posts/2019-03-14/</link>
       <pubDate>Thu, 14 Mar 2019 11:18:20 +0800</pubDate>
-      
       <guid>https://lvlv.fun/posts/2019-03-14/</guid>
       <description>Protobuf是什么 Protobuf是一种平台无关、语言无关、可扩展且轻便高效的序列化数据结构的协议，可以用于通信协议和数据存储等。 传输协议 - 如json、XML IDL - 接口描述语言 存储格式 - 序列化压缩后存储到数据库 核心竞争力 向前向后兼容性 - 新老版本兼容，无需考虑版本升级 多语言代码生成 - 支持Java、Python、PHP、Go等编程语言 快&amp;amp;小 - 序列化、反序列化速度快，压缩比优秀 关键技术 varints编码 每个字节使用其中7位保存数字，最高位表示后面是否还有内容 低位在前，高位在后 保留了fixed32和fixed64，用于传递大的正数 int32、int64、unit32、uint64、bool，序列化结果相互兼容，可以修改 zigzag编码 传统上，负数最高位为1，小负数会浪费编码长度 (n&amp;lt;&amp;lt;1)^(n&amp;gt;&amp;gt;31) -1将会被编码成1，1将会编码成2，-2将会被编码成3 sint32和sint64使用zigzag编码 message structure编码 Tag-Value编码 Tag=(field_number&amp;lt;&amp;lt;3)|wire_type-&amp;gt;varints wire_type:0表示varints，1表示固定64位，5表示固定32位 wire_type:2表示Tag-Length-Value编码（TLV），Length使用varints string、bytes、message嵌套，都采用TLV编码 wire_type只有0、1、2、5，那么3和4去哪了？—被废除了
 repeated编码 第一种方式：重复出现的相同tag
@@ -108,12 +96,10 @@ Map编码 map&amp;lt;key_type,value_type&amp;gt;map_field=N
 序列化结果完全等价于：
 message MapFieldEntry { key_type key = 1; value_type value = 2; } repeated MapFieldEntry map_field = N; protoc编译器 C++编写的proto文件编译器 支持各种语言编写的插件，使用进程间通信传递信息 Android和iOS上有对应的插件支持，自动调用protoc Github地址：https://github.</description>
     </item>
-    
     <item>
       <title>Learning go from zero to hero - Part 2</title>
       <link>https://lvlv.fun/posts/2018-12-28/</link>
       <pubDate>Fri, 28 Dec 2018 13:34:06 +0800</pubDate>
-      
       <guid>https://lvlv.fun/posts/2018-12-28/</guid>
       <description>作者：Milap Neupane
 链接：https://medium.freecodecamp.org/learning-go-from-zero-to-hero-d2a3223b3d86
@@ -124,12 +110,10 @@ func add(a int, b int) (c int) { c = a + b return } func main() { fmt.Println(ad
 还可以从单个函数返回多个返回值，将返回值与逗号分隔开。
 func add(a int, b int) (int, string) { c := a + b return c, &amp;#34;successfully added&amp;#34; } func main() { sum, message := add(2, 1) fmt.</description>
     </item>
-    
     <item>
       <title>Learning go from zero to hero - Part 1</title>
       <link>https://lvlv.fun/posts/2018-12-22/</link>
       <pubDate>Sat, 22 Dec 2018 18:47:53 +0800</pubDate>
-      
       <guid>https://lvlv.fun/posts/2018-12-22/</guid>
       <description>作者：Milap Neupane
 链接：https://medium.freecodecamp.org/learning-go-from-zero-to-hero-d2a3223b3d86
@@ -152,34 +136,26 @@ Hello World! package main import ( &amp;#34;fmt&amp;#34; ) func main(){ fmt.Prin
 go build main.go 这将创建一个二进制可执行文件main，现在我们可以运行：
 ./main # Hello World！ 还有另一种更简单的方式来运行程序。使用go run命令有助于抽象编译步骤。只需运行以下命令即可编译并执行该程序。</description>
     </item>
-    
-    
     <item>
       <title>Latest</title>
       <link>https://lvlv.fun/latest/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
       <guid>https://lvlv.fun/latest/</guid>
       <description>latest</description>
     </item>
-    
     <item>
       <title>Live</title>
       <link>https://lvlv.fun/live/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
       <guid>https://lvlv.fun/live/</guid>
       <description>live</description>
     </item>
-    
     <item>
       <title>Memos</title>
       <link>https://lvlv.fun/memos/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
       <guid>https://lvlv.fun/memos/</guid>
       <description>memos</description>
     </item>
-    
   </channel>
 </rss>

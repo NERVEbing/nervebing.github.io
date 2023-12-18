@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Lv&#39;s Playground</title>
     <link>https://lvlv.fun/tags/</link>
@@ -11,114 +11,91 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 30 May 2022 02:25:11 +0800</lastBuildDate><atom:link href="https://lvlv.fun/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 30 May 2022 02:25:11 +0800</lastBuildDate>
+    <atom:link href="https://lvlv.fun/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>gRPC</title>
       <link>https://lvlv.fun/tags/grpc/</link>
       <pubDate>Mon, 30 May 2022 02:25:11 +0800</pubDate>
-      
       <guid>https://lvlv.fun/tags/grpc/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Microservices</title>
       <link>https://lvlv.fun/tags/microservices/</link>
       <pubDate>Mon, 30 May 2022 02:25:11 +0800</pubDate>
-      
       <guid>https://lvlv.fun/tags/microservices/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Rust</title>
       <link>https://lvlv.fun/tags/rust/</link>
       <pubDate>Mon, 30 May 2022 02:25:11 +0800</pubDate>
-      
       <guid>https://lvlv.fun/tags/rust/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Bilibili</title>
       <link>https://lvlv.fun/tags/bilibili/</link>
       <pubDate>Sat, 21 May 2022 00:36:37 +0800</pubDate>
-      
       <guid>https://lvlv.fun/tags/bilibili/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>JavaScript</title>
       <link>https://lvlv.fun/tags/javascript/</link>
       <pubDate>Sat, 21 May 2022 00:36:37 +0800</pubDate>
-      
       <guid>https://lvlv.fun/tags/javascript/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Gen10 Plus</title>
       <link>https://lvlv.fun/tags/gen10-plus/</link>
       <pubDate>Sun, 08 May 2022 11:09:36 +0800</pubDate>
-      
       <guid>https://lvlv.fun/tags/gen10-plus/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>HomeLab</title>
       <link>https://lvlv.fun/tags/homelab/</link>
       <pubDate>Sun, 08 May 2022 11:09:36 +0800</pubDate>
-      
       <guid>https://lvlv.fun/tags/homelab/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>innoDB</title>
       <link>https://lvlv.fun/tags/innodb/</link>
       <pubDate>Tue, 29 Oct 2019 19:12:30 +0800</pubDate>
-      
       <guid>https://lvlv.fun/tags/innodb/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>MySQL</title>
       <link>https://lvlv.fun/tags/mysql/</link>
       <pubDate>Tue, 29 Oct 2019 19:12:30 +0800</pubDate>
-      
       <guid>https://lvlv.fun/tags/mysql/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Problem</title>
       <link>https://lvlv.fun/tags/problem/</link>
       <pubDate>Mon, 22 Jul 2019 12:40:20 +0800</pubDate>
-      
       <guid>https://lvlv.fun/tags/problem/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Protobuf</title>
       <link>https://lvlv.fun/tags/protobuf/</link>
       <pubDate>Thu, 14 Mar 2019 11:18:20 +0800</pubDate>
-      
       <guid>https://lvlv.fun/tags/protobuf/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Go</title>
       <link>https://lvlv.fun/tags/go/</link>
       <pubDate>Fri, 28 Dec 2018 13:34:06 +0800</pubDate>
-      
       <guid>https://lvlv.fun/tags/go/</guid>
       <description></description>
     </item>
-    
   </channel>
 </rss>
