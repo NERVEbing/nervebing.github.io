@@ -150,5 +150,12 @@ go build main.go 这将创建一个二进制可执行文件main，现在我们�
       <guid>https://lvlv.fun/live/</guid>
       <description>live</description>
     </item>
+    <item>
+      <title>Navigation</title>
+      <link>https://lvlv.fun/navigation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://lvlv.fun/navigation/</guid>
+      <description>navigation</description>
+    </item>
   </channel>
 </rss>
