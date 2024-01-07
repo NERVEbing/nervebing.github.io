@@ -35,8 +35,8 @@
 
 .nav-item-list-item:hover {
     border-radius: 0.5em;
-    background: #1D1E20;
-    transition: background 0.2s;
+    background: var(--special-color-light);
+    transition: background 0.4s;
 }
 
 .nav-item-list-item-icon > .bi::before {
