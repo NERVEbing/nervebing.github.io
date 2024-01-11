@@ -1,12 +1,14 @@
 #live-container {
     display: block;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 2rem 0;
 }
 
 #live-video-element {
-    display: none;
+    display: block;
     height: 100%;
     width: 100%;
     border-radius: 0.5em;
