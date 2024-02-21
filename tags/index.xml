@@ -14,7 +14,7 @@
     <lastBuildDate>Mon, 30 May 2022 02:25:11 +0800</lastBuildDate>
     <atom:link href="https://lvlv.fun/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>gRPC</title>
+      <title>GRPC</title>
       <link>https://lvlv.fun/tags/grpc/</link>
       <pubDate>Mon, 30 May 2022 02:25:11 +0800</pubDate>
       <guid>https://lvlv.fun/tags/grpc/</guid>
@@ -63,7 +63,7 @@
       <description></description>
     </item>
     <item>
-      <title>innoDB</title>
+      <title>InnoDB</title>
       <link>https://lvlv.fun/tags/innodb/</link>
       <pubDate>Tue, 29 Oct 2019 19:12:30 +0800</pubDate>
       <guid>https://lvlv.fun/tags/innodb/</guid>
