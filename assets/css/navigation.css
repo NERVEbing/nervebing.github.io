@@ -39,10 +39,10 @@
     transition: background 0.4s;
 }
 
-.nav-item-list-item-icon > .bi::before {
+.nav-item-list-item-icon > img {
     float: left;
-    font-size: 1.4em;
-    margin: 0.4em 0 0 0.1em;
+    height: 1.6em;
+    margin: 0.4em 0.6em 0 0.1em;
 }
 
 .nav-item-list-item-text {
