@@ -4,7 +4,7 @@
     <title>Go on Lv&#39;s Playground</title>
     <link>https://lvlv.fun/tags/go/</link>
     <description>Recent content in Go on Lv&#39;s Playground</description>
-    <generator>Hugo -- 0.125.7</generator>
+    <generator>Hugo -- 0.126.1</generator>
     <language>en</language>
     <lastBuildDate>Fri, 28 Dec 2018 13:34:06 +0800</lastBuildDate>
     <atom:link href="https://lvlv.fun/tags/go/index.xml" rel="self" type="application/rss+xml" />
@@ -16,9 +16,9 @@
       <description>作者：Milap Neupane
 链接：https://medium.freecodecamp.org/learning-go-from-zero-to-hero-d2a3223b3d86
 函数 main.go包中定义的func main()是执行程序的入口。可以定义和使用更多函数。让我们看一个简单的例子：
-func add(a int, b int) int { c := a + b return c } func main() { fmt.Println(add(2, 1)) } // 3 正如我们在上面的例子中所看到的，使用**func关键字后跟函数名来定义Go函数。函数所需的参数**需要根据其数据类型定义，最后是返回的数据类型。
+func add(a int, b int) int { c := a + b return c } func main() { fmt.Println(add(2, 1)) } // 3 正如我们在上面的例子中所看到的，使用**func关键字后跟函数名来定义 Go 函数。函数所需的参数**需要根据其数据类型定义，最后是返回的数据类型。
 函数的返回也可以在函数中预定义：
-func add(a int, b int) (c int) { c = a + b return } func main() { fmt.Println(add(2, 1)) } // 3 这里c被定义为返回变量。因此，定义的变量c将自动返回，而无需在结尾的return语句中定义。
+func add(a int, b int) (c int) { c = a + b return } func main() { fmt.Println(add(2, 1)) } // 3 这里 c 被定义为返回变量。因此，定义的变量 c 将自动返回，而无需在结尾的 return 语句中定义。
 还可以从单个函数返回多个返回值，将返回值与逗号分隔开。
 func add(a int, b int) (int, string) { c := a + b return c, &amp;#34;successfully added&amp;#34; } func main() { sum, message := add(2, 1) fmt.</description>
     </item>
@@ -29,24 +29,19 @@ func add(a int, b int) (int, string) { c := a + b return c, &amp;#34;successfull
       <guid>https://lvlv.fun/posts/2018-12-22/</guid>
       <description>作者：Milap Neupane
 链接：https://medium.freecodecamp.org/learning-go-from-zero-to-hero-d2a3223b3d86
-开始 想到刚开始学习Go的时候，也是不清不楚地本着拿来能用就行的心态，没有系统学习，导致学习过程中踩坑无数。今天发现一篇文章写的很好，Go语言的特征讲得很细，翻译给需要的初学Go的同学。
-前言 让我们从Go（或者称为Golang）的一个小介绍开始。Go由Google工程师Robert Griesemer，Rob Pike和Ken Thompson设计。它是一种静态类型的编译语言。第一个版本于2012年3月作为开源发布。
-“ Go是一种开源编程语言，可以轻松构建简单，可靠，高效的软件 ”
+开始 想到刚开始学习 Go 的时候，也是不清不楚地本着拿来能用就行的心态，没有系统学习，导致学习过程中踩坑无数。今天发现一篇文章写的很好，Go 语言的特征讲得很细，翻译给需要的初学 Go 的同学。
+前言 让我们从 Go（或者称为 Golang）的一个小介绍开始。Go 由 Google 工程师 Robert Griesemer，Rob Pike 和 Ken Thompson 设计。它是一种静态类型的编译语言。第一个版本于 2012 年 3 月作为开源发布。
+“Go 是一种开源编程语言，可以轻松构建简单，可靠，高效的软件”
 在许多语言中，有许多方法可以解决给定的问题。程序员可以花很多时间思考解决问题的最佳方法。
-另一方面，Go相信更少的功能 — 只有一种正确的方法来解决问题。
+另一方面，Go 相信更少的功能 — 只有一种正确的方法来解决问题。
 这节省了开发人员的时间，并使大型代码库易于维护。
-“ 功能越多，成本越高 ” — Rob Pike
-入门 Go由package组成。名为main的包告诉Go编译器被编译为可执行文件，而不是作为library被引用。它是应用程序的主入口。主包定义为：
-package main 让我们在Go工作区中创建一个简单的hello world示例。
-工作区 Go中的工作空间由环境变量定义，称为 GOPATH。
-你的任何代码都将写在工作区内。Go将搜索GOPATH目录中的任何包，或者GOROOT在安装Go时默认设置的目录。注：GOROOT 是安装go的路径。
+“功能越多，成本越高” — Rob Pike
+入门 Go 由package组成。名为main的包告诉 Go 编译器被编译为可执行文件，而不是作为 library 被引用。它是应用程序的主入口。主包定义为：
+package main 让我们在 Go 工作区中创建一个简单的 hello world 示例。
+工作区 Go 中的工作空间由环境变量定义，称为 GOPATH。
+你的任何代码都将写在工作区内。Go 将搜索GOPATH目录中的任何包，或者GOROOT在安装 Go 时默认设置的目录。注：GOROOT 是安装 go 的路径。
 设置GOPATH为所需的目录。现在，让我们将其添加到文件夹中~/workspace。
-# 定义GOPATH目录 export GOPATH=~/workspace # 进入工作区目录 cd ~/workspace 在我们刚刚创建的工作区文件夹中创建main.go文件并写入以下代码。
-Hello World! package main import ( &amp;#34;fmt&amp;#34; ) func main(){ fmt.Println(&amp;#34;Hello World!&amp;#34;) } 在上面的示例中，Go中的官方包fmt实现了格式化I/O的函数。
-我们使用import 关键字在Go中导入fmt包。func main是代码执行的主入口。Println是fmt包内的一个函数，我们用它来打印“hello world”。
-让我们先运行这个文件看看。可以通过两种方式运行Go命令。众所周知，Go是编译型语言，所以我们要在执行之前编译它。
-go build main.go 这将创建一个二进制可执行文件main，现在我们可以运行：
-./main # Hello World！ 还有另一种更简单的方式来运行程序。使用go run命令有助于抽象编译步骤。只需运行以下命令即可编译并执行该程序。</description>
+# 定义GOPATH目录 export GOPATH=~/workspace # 进入工作区目录 cd ~/workspace 在我们刚刚创建的工作区文件夹中创建main.</description>
     </item>
   </channel>
 </rss>
