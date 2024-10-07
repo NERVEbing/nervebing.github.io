@@ -4,7 +4,7 @@
     <title>Protobuf on Lv&#39;s Playground</title>
     <link>https://lvlv.fun/tags/protobuf/</link>
     <description>Recent content in Protobuf on Lv&#39;s Playground</description>
-    <generator>Hugo -- 0.129.0</generator>
+    <generator>Hugo -- 0.135.0</generator>
     <language>en</language>
     <lastBuildDate>Thu, 14 Mar 2019 11:18:20 +0800</lastBuildDate>
     <atom:link href="https://lvlv.fun/tags/protobuf/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +13,50 @@
       <link>https://lvlv.fun/posts/2019-03-14/</link>
       <pubDate>Thu, 14 Mar 2019 11:18:20 +0800</pubDate>
       <guid>https://lvlv.fun/posts/2019-03-14/</guid>
-      <description>Protobuf 是什么 Protobuf 是一种平台无关、语言无关、可扩展且轻便高效的序列化数据结构的协议，可以用于通信协议和数据存储等。 传输协议 - 如 json、XML IDL - 接口描述语言 存储格式 - 序列化压缩后存储到数据库 核心竞争力 向前向后兼容性 - 新老版本兼容，无需考虑版本升级 多语言代码生成 - 支持 Java、Python、PHP、Go 等编程语言 快&amp;amp;小 - 序列化、反序列化速度快，压缩比优秀 关键技术 varints 编码 每个字节使用其中 7 位保存数字，最高位表示后面是否还有内容 低位在前，高位在后 保留了fixed32和fixed64，用于传递大的正数 int32、int64、unit32、uint64、bool，序列化结果相互兼容，可以修改 zigzag 编码 传统上，负数最高位为 1，小负数会浪费编码长度 (n&amp;lt;&amp;lt;1)^(n&amp;gt;&amp;gt;31) -1 将会被编码成 1，1 将会编码成 2，-2 将会被编码成 3 sint32和sint64使用 zigzag 编码 message structure 编码 Tag-Value 编码 Tag=(field_number&amp;lt;&amp;lt;3)|wire_type-&amp;gt;varints wire_type:0 表示 varints，1 表示固定 64 位，5 表示固定 32 位 wire_type:2 表示 Tag-Length-Value 编码（TLV），Length 使用 varints string、bytes、message 嵌套，都采用 TLV 编码 wire_type 只有 0、1、2、5，那么 3 和 4 去哪了？—被废除了</description>
+      <description>&lt;h3 id=&#34;protobuf-是什么&#34;&gt;Protobuf 是什么&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Protobuf 是一种平台无关、语言无关、可扩展且轻便高效的序列化数据结构的协议，可以用于&lt;strong&gt;通信协议&lt;/strong&gt;和&lt;strong&gt;数据存储等&lt;/strong&gt;。
+&lt;ul&gt;
+&lt;li&gt;传输协议 - 如 json、XML&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://baike.baidu.com/item/IDL/34727?fr=aladdin&#34;&gt;IDL&lt;/a&gt; - 接口描述语言&lt;/li&gt;
+&lt;li&gt;存储格式 - 序列化压缩后存储到数据库&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;核心竞争力
+&lt;ul&gt;
+&lt;li&gt;向前向后兼容性 - 新老版本兼容，无需考虑版本升级&lt;/li&gt;
+&lt;li&gt;多语言代码生成 - 支持 Java、Python、PHP、Go 等编程语言&lt;/li&gt;
+&lt;li&gt;快&amp;amp;小 - 序列化、反序列化速度快，压缩比优秀&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h3 id=&#34;关键技术&#34;&gt;关键技术&lt;/h3&gt;
+&lt;h4 id=&#34;varints-编码&#34;&gt;varints 编码&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;每个字节使用其中 7 位保存数字，最高位表示后面是否还有内容&lt;/li&gt;
+&lt;li&gt;低位在前，高位在后&lt;/li&gt;
+&lt;li&gt;保留了&lt;code&gt;fixed32&lt;/code&gt;和&lt;code&gt;fixed64&lt;/code&gt;，用于传递大的正数&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int32&lt;/code&gt;、&lt;code&gt;int64&lt;/code&gt;、&lt;code&gt;unit32&lt;/code&gt;、&lt;code&gt;uint64&lt;/code&gt;、&lt;code&gt;bool&lt;/code&gt;，序列化结果相互兼容，可以修改&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://i.loli.net/2019/03/14/5c8a53e35a37b.png&#34; alt=&#34;&#34;  /&gt;
+&lt;/p&gt;
+&lt;h4 id=&#34;zigzag-编码&#34;&gt;zigzag 编码&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;传统上，负数最高位为 1，小负数会浪费编码长度&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;(n&amp;lt;&amp;lt;1)^(n&amp;gt;&amp;gt;31)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;-1 将会被编码成 1，1 将会编码成 2，-2 将会被编码成 3&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sint32&lt;/code&gt;和&lt;code&gt;sint64&lt;/code&gt;使用 zigzag 编码&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;message-structure-编码&#34;&gt;message structure 编码&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;Tag-Value 编码&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Tag=(field_number&amp;lt;&amp;lt;3)|wire_type-&amp;gt;varints&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;wire_type:0 表示 varints，1 表示固定 64 位，5 表示固定 32 位&lt;/li&gt;
+&lt;li&gt;wire_type:2 表示 Tag-Length-Value 编码（TLV），Length 使用 varints&lt;/li&gt;
+&lt;li&gt;string、bytes、message 嵌套，都采用 TLV 编码&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;wire_type 只有 0、1、2、5，那么 3 和 4 去哪了？—被废除了&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

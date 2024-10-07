@@ -4,7 +4,7 @@
     <title>Rust on Lv&#39;s Playground</title>
     <link>https://lvlv.fun/tags/rust/</link>
     <description>Recent content in Rust on Lv&#39;s Playground</description>
-    <generator>Hugo -- 0.129.0</generator>
+    <generator>Hugo -- 0.135.0</generator>
     <language>en</language>
     <lastBuildDate>Mon, 30 May 2022 02:25:11 +0800</lastBuildDate>
     <atom:link href="https://lvlv.fun/tags/rust/index.xml" rel="self" type="application/rss+xml" />
@@ -13,14 +13,41 @@
       <link>https://lvlv.fun/posts/2022-05-30/</link>
       <pubDate>Mon, 30 May 2022 02:25:11 +0800</pubDate>
       <guid>https://lvlv.fun/posts/2022-05-30/</guid>
-      <description>前言 当前越来越多的公司基于 Google gRPC 通信框架来构建微服务体系，比较流行的是使用 Go/Java/C++ 这样的主流编程语言来编写服务端，我们今天来尝试使用 Rust 语言来实现一个 gRPC 服务端/客户端。
-打开官方文档可以看到目前 Rust 并不在 gRPC 官方支持的语言列表中：
-Supported languages
-C# C++ Dart Go Java Kotlin Node Objective-C PHP Python Ruby 不过不用担心这个问题。我们知道只要某个语言兼容了基于 C/C++ 编写的 gRPC 的核心库 ，那么该语言就可以完美支持 gRPC。目前 Rust 可以实现 gRPC 的主流 crate 如下：
-tonic grpc-rs grpc-rust 以上三种任选其一都可以，只是 grpc-rs/grpc-rust 当前还处于开发状态，我们在这里使用 tonic 包。
-构建程序 首先检查你的 Rust 版本：
-$ rustc --version rustc 1.61.0 (fe5b13d68 2022-05-18) tonic 适用于 1.56 及以上，如果低于这个版本，你应该先更新你的 Rust 编译器：
-$ rustup update stable 确保你已经提前安装了 protobuf：</description>
+      <description>&lt;h3 id=&#34;前言&#34;&gt;前言&lt;/h3&gt;
+&lt;p&gt;当前越来越多的公司基于 Google &lt;a href=&#34;https://grpc.io&#34;&gt;gRPC&lt;/a&gt; 通信框架来构建微服务体系，比较流行的是使用 Go/Java/C++
+这样的主流编程语言来编写服务端，我们今天来尝试使用 Rust 语言来实现一个 gRPC 服务端/客户端。&lt;/p&gt;
+&lt;p&gt;打开&lt;a href=&#34;https://grpc.io/docs/languages/&#34;&gt;官方文档&lt;/a&gt;可以看到目前 Rust 并不在 gRPC 官方支持的语言列表中：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Supported languages&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;C#&lt;/li&gt;
+&lt;li&gt;C++&lt;/li&gt;
+&lt;li&gt;Dart&lt;/li&gt;
+&lt;li&gt;Go&lt;/li&gt;
+&lt;li&gt;Java&lt;/li&gt;
+&lt;li&gt;Kotlin&lt;/li&gt;
+&lt;li&gt;Node&lt;/li&gt;
+&lt;li&gt;Objective-C&lt;/li&gt;
+&lt;li&gt;PHP&lt;/li&gt;
+&lt;li&gt;Python&lt;/li&gt;
+&lt;li&gt;Ruby&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;不过不用担心这个问题。我们知道只要某个语言兼容了基于 C/C++ 编写的 gRPC 的&lt;a href=&#34;https://github.com/grpc/grpc&#34;&gt;核心库&lt;/a&gt;
+，那么该语言就可以完美支持 gRPC。目前 Rust 可以实现 gRPC 的主流 crate 如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/hyperium/tonic&#34;&gt;tonic&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/tikv/grpc-rs&#34;&gt;grpc-rs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/stepancheg/grpc-rust&#34;&gt;grpc-rust&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以上三种任选其一都可以，只是 grpc-rs/grpc-rust 当前还处于开发状态，我们在这里使用 tonic 包。&lt;/p&gt;
+&lt;h3 id=&#34;构建程序&#34;&gt;构建程序&lt;/h3&gt;
+&lt;p&gt;首先检查你的 Rust 版本：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ rustc --version
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rustc 1.61.0 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;fe5b13d68 2022-05-18&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;tonic 适用于 1.56 及以上，如果低于这个版本，你应该先更新你的 Rust 编译器：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ rustup update stable
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;确保你已经提前安装了 protobuf：&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
