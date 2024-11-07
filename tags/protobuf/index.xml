@@ -4,7 +4,7 @@
     <title>Protobuf on Lv&#39;s Playground</title>
     <link>https://lvlv.fun/tags/protobuf/</link>
     <description>Recent content in Protobuf on Lv&#39;s Playground</description>
-    <generator>Hugo -- 0.135.0</generator>
+    <generator>Hugo -- 0.138.0</generator>
     <language>en</language>
     <lastBuildDate>Thu, 14 Mar 2019 11:18:20 +0800</lastBuildDate>
     <atom:link href="https://lvlv.fun/tags/protobuf/index.xml" rel="self" type="application/rss+xml" />
@@ -39,8 +39,7 @@
 &lt;li&gt;保留了&lt;code&gt;fixed32&lt;/code&gt;和&lt;code&gt;fixed64&lt;/code&gt;，用于传递大的正数&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;int32&lt;/code&gt;、&lt;code&gt;int64&lt;/code&gt;、&lt;code&gt;unit32&lt;/code&gt;、&lt;code&gt;uint64&lt;/code&gt;、&lt;code&gt;bool&lt;/code&gt;，序列化结果相互兼容，可以修改&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://i.loli.net/2019/03/14/5c8a53e35a37b.png&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://i.loli.net/2019/03/14/5c8a53e35a37b.png&#34;&gt;&lt;/p&gt;
 &lt;h4 id=&#34;zigzag-编码&#34;&gt;zigzag 编码&lt;/h4&gt;
 &lt;ol&gt;
 &lt;li&gt;传统上，负数最高位为 1，小负数会浪费编码长度&lt;/li&gt;
