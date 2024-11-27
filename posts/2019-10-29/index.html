@@ -42,50 +42,7 @@ innodb 全文索引 使用倒排索引实现，使用了 FTS Index Cache 缓存�
 
 
 myisam 只支持表锁，sql server 2005 版之前只支持页锁，2005 开始支持行锁，但是实现方式与 innodb 不同，加锁会有资源开销，innodb
-则与 oracle 的锁实现类似"><meta name=author content="L"><link rel=canonical href=https://lvlv.fun/posts/2019-10-29/><link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style><link rel=icon href=https://lvlv.fun/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://lvlv.fun/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://lvlv.fun/favicon-32x32.png><link rel=apple-touch-icon href=https://lvlv.fun/apple-touch-icon.png><link rel=mask-icon href=https://lvlv.fun/apple-touch-icon.png><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=https://lvlv.fun/posts/2019-10-29/><noscript><style>#theme-toggle,.top-link{display:none}</style></noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fontsource/mononoki@5.0.7/index.min.css><script defer src=https://hi.lvlv.fun/hi.js data-website-id=685c7d96-4af8-4152-8071-ff743ac81947 data-domains=lvlv.fun></script><script>const isLightMode=function(){return localStorage.getItem("pref-theme")!=="dark"},getModeSwitch=function(){return document.getElementById("theme-toggle")}</script><meta property="og:title" content="MySQL/innoDB 内部实现"><meta property="og:description" content="MySQL 存储结构
-
-B-tree 是平衡的多路查找树。
-涉及到磁盘的查找需要设法减少磁盘 I/O 次数。
-B-tree 就是为解决这个问题而引入的数据结构。
-
-
-区别于二叉树 b-tree 可以拥有很多个子节点（这个度量被称为「内结点出度」)
-我们可以在技术上使 B-tree 的结点大小为磁盘一个页的大小，并且在新建结点时直接申请一个页大小的空间，使得结点的物理存储位置也是在一个页里，这样就能实现存取一个结点只需一次磁盘
-I/O
-在最坏情况下，B-tree 的一次检索最多需要 H（树的高度）次的磁盘 I/O
-实际上，为了取得更大的内结点出度，各个数据库一般会采用 B-tree 的变种如 B+-tree，B*-tree 来实现索引，比如 MySQL 的存储引擎
-InnoDB 就采用 B+-tree 来实现聚簇索引
-
-索引
-
-字符串索引，长度限制 innodb 存储引擎，默认前缀长度最大能支持 767 字节；而在开启 innodb_large_prefix 属性值的情况下，最大能支持
-3072 字节
-前缀索引，后缀索引，手动 md5 哈希索引
-innode 内置哈希
-Cardinality 不重复值预估，除以记录总数的比例 尽量接近 1 索引的价值越大
-查询优化器 选择索引时会考虑这个值
-oltp olap
-Online Analytical Processing
-Online transaction processing
-
-索引细节
-
-单列索引币复合索引在每个数据页存的记录要多，所以查询优化器优先使用单列索引
-覆盖索引
-数据最小读取单位 (索引页？)
-count(*) 操作，实际会读取辅助索引，避免读取聚合索引
-统计操作，覆盖索引的情况下，可以直接查询复合索引 (a,b) 中的 b
-index hint 索引提示 use index 只是提示，force index 才是强制
-multi-range read 优化 从辅助索引筛选完之后，将结果，已主键进行排序，再去读聚合索引下的记录行
-index condition pushdown（IPC）优化，将 where 过滤条件推送到存储引擎，减少数据传输 (使用时会提示 using index condition)
-innodb 全文索引 使用倒排索引实现，使用了 FTS Index Cache 缓存数据变更，批量更新到 Auxiliary Table 中 (
-这个表可以通过关键词定位到文档，单词位置)
-
-锁
-
-
-myisam 只支持表锁，sql server 2005 版之前只支持页锁，2005 开始支持行锁，但是实现方式与 innodb 不同，加锁会有资源开销，innodb
-则与 oracle 的锁实现类似"><meta property="og:type" content="article"><meta property="og:url" content="https://lvlv.fun/posts/2019-10-29/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2019-10-29T19:12:30+08:00"><meta property="article:modified_time" content="2019-10-29T19:12:30+08:00"><meta property="og:site_name" content="Lv's Playground"><meta name=twitter:card content="summary"><meta name=twitter:title content="MySQL/innoDB 内部实现"><meta name=twitter:description content="MySQL 存储结构
+则与 oracle 的锁实现类似"><meta name=author content="L"><link rel=canonical href=https://lvlv.fun/posts/2019-10-29/><link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style><link rel=icon href=https://lvlv.fun/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://lvlv.fun/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://lvlv.fun/favicon-32x32.png><link rel=apple-touch-icon href=https://lvlv.fun/apple-touch-icon.png><link rel=mask-icon href=https://lvlv.fun/apple-touch-icon.png><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=https://lvlv.fun/posts/2019-10-29/><noscript><style>#theme-toggle,.top-link{display:none}</style></noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fontsource/mononoki@5.0.7/index.min.css><script defer src=https://hi.lvlv.fun/hi.js data-website-id=685c7d96-4af8-4152-8071-ff743ac81947 data-domains=lvlv.fun></script><script>const isLightMode=function(){return localStorage.getItem("pref-theme")!=="dark"},getModeSwitch=function(){return document.getElementById("theme-toggle")}</script><meta property="og:url" content="https://lvlv.fun/posts/2019-10-29/"><meta property="og:site_name" content="Lv's Playground"><meta property="og:title" content="MySQL/innoDB 内部实现"><meta property="og:description" content="MySQL 存储结构 B-tree 是平衡的多路查找树。 涉及到磁盘的查找需要设法减少磁盘 I/O 次数。 B-tree 就是为解决这个问题而引入的数据结构。 区别于二叉树 b-tree 可以拥有很多个子节点（这个度量被称为「内结点出度」) 我们可以在技术上使 B-tree 的结点大小为磁盘一个页的大小，并且在新建结点时直接申请一个页大小的空间，使得结点的物理存储位置也是在一个页里，这样就能实现存取一个结点只需一次磁盘 I/O 在最坏情况下，B-tree 的一次检索最多需要 H（树的高度）次的磁盘 I/O 实际上，为了取得更大的内结点出度，各个数据库一般会采用 B-tree 的变种如 B+-tree，B*-tree 来实现索引，比如 MySQL 的存储引擎 InnoDB 就采用 B+-tree 来实现聚簇索引 索引 字符串索引，长度限制 innodb 存储引擎，默认前缀长度最大能支持 767 字节；而在开启 innodb_large_prefix 属性值的情况下，最大能支持 3072 字节 前缀索引，后缀索引，手动 md5 哈希索引 innode 内置哈希 Cardinality 不重复值预估，除以记录总数的比例 尽量接近 1 索引的价值越大 查询优化器 选择索引时会考虑这个值 oltp olap Online Analytical Processing Online transaction processing 索引细节 单列索引币复合索引在每个数据页存的记录要多，所以查询优化器优先使用单列索引 覆盖索引 数据最小读取单位 (索引页？) count(*) 操作，实际会读取辅助索引，避免读取聚合索引 统计操作，覆盖索引的情况下，可以直接查询复合索引 (a,b) 中的 b index hint 索引提示 use index 只是提示，force index 才是强制 multi-range read 优化 从辅助索引筛选完之后，将结果，已主键进行排序，再去读聚合索引下的记录行 index condition pushdown（IPC）优化，将 where 过滤条件推送到存储引擎，减少数据传输 (使用时会提示 using index condition) innodb 全文索引 使用倒排索引实现，使用了 FTS Index Cache 缓存数据变更，批量更新到 Auxiliary Table 中 ( 这个表可以通过关键词定位到文档，单词位置) 锁 myisam 只支持表锁，sql server 2005 版之前只支持页锁，2005 开始支持行锁，但是实现方式与 innodb 不同，加锁会有资源开销，innodb 则与 oracle 的锁实现类似"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2019-10-29T19:12:30+08:00"><meta property="article:modified_time" content="2019-10-29T19:12:30+08:00"><meta property="article:tag" content="MySQL"><meta property="article:tag" content="InnoDB"><meta name=twitter:card content="summary"><meta name=twitter:title content="MySQL/innoDB 内部实现"><meta name=twitter:description content="MySQL 存储结构
 
 B-tree 是平衡的多路查找树。
 涉及到磁盘的查找需要设法减少磁盘 I/O 次数。
