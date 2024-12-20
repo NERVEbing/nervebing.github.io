@@ -39,7 +39,7 @@
     transition: background 0.4s;
 }
 
-.nav-item-list-item-icon > img {
+.nav-item-list-item-icon>img {
     float: left;
     height: 1.6em;
     margin: 0.4em 0.6em 0 0.1em;
