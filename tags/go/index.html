@@ -11,6 +11,7 @@ func add(a int, b int) (int, string) { c := a + b return c, "successfully added"
 结构 结构struct是不同类型字段的集合。结构用于将数据分组在一起。例如，如果我们想要对Person类型的数据进行分组，我们会定义一个人的属性，其中可能包括姓名，年龄，性别。可以使用以下语法定义结构：
 type person struct { name string age int gender string } 在定义了人类型结构的情况下，现在让我们创建一个person：
 //方式 1：指定属性和值 p = person{name: "Bob", age: 42, gender: "Male"} //方式 2：仅指定值 person{"Bob", 42, "Male"} 我们可以用点.轻松访问这些数据
+p.name // Bob p.age // 42 p.gender // Male 还可以使用其指针直接访问结构的属性：
 ...</p></div><footer class=entry-footer><span title='2018-12-28 13:34:06 +0800 +0800'>2018-12-28</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;L</footer><a class=entry-link aria-label="post link to Learning go from zero to hero - Part 2" href=https://lvlv.fun/posts/2018-12-28/></a></article><article class="post-entry tag-entry"><header class=entry-header><h2 class=entry-hint-parent>Learning go from zero to hero - Part 1</h2></header><div class=entry-content><p>作者：Milap Neupane
 链接：https://medium.freecodecamp.org/learning-go-from-zero-to-hero-d2a3223b3d86
 开始 想到刚开始学习 Go 的时候，也是不清不楚地本着拿来能用就行的心态，没有系统学习，导致学习过程中踩坑无数。今天发现一篇文章写的很好，Go 语言的特征讲得很细，翻译给需要的初学 Go 的同学。
