@@ -4,7 +4,7 @@
     <title>Lv&#39;s Playground</title>
     <link>https://lvlv.fun/</link>
     <description>Recent content on Lv&#39;s Playground</description>
-    <generator>Hugo -- 0.145.0</generator>
+    <generator>Hugo -- 0.146.5</generator>
     <language>en</language>
     <lastBuildDate>Mon, 30 May 2022 02:25:11 +0800</lastBuildDate>
     <atom:link href="https://lvlv.fun/index.xml" rel="self" type="application/rss+xml" />
@@ -471,13 +471,6 @@ client 到 server 经历了一层 ipvs，所以最大的可能就是 ipvs 出将
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://lvlv.fun/latest/</guid>
       <description>latest</description>
-    </item>
-    <item>
-      <title>Live</title>
-      <link>https://lvlv.fun/live/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://lvlv.fun/live/</guid>
-      <description>live</description>
     </item>
     <item>
       <title>Navigation</title>
