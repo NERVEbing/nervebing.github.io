@@ -31,7 +31,8 @@
 &lt;li&gt;PHP&lt;/li&gt;
 &lt;li&gt;Python&lt;/li&gt;
 &lt;li&gt;Ruby&lt;/li&gt;
-&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;不过不用担心这个问题。我们知道只要某个语言兼容了基于 C/C++ 编写的 gRPC 的&lt;a href=&#34;https://github.com/grpc/grpc&#34;&gt;核心库&lt;/a&gt;
 ，那么该语言就可以完美支持 gRPC。目前 Rust 可以实现 gRPC 的主流 crate 如下：&lt;/p&gt;
 &lt;ul&gt;
